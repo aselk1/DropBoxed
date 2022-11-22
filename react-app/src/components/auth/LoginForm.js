@@ -15,7 +15,7 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password))
-    .then(history.push('/home'))
+    // .then(history.push('/home'))
     if (data) {
       setErrors(data);
     }
