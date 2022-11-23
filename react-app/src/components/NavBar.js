@@ -24,14 +24,14 @@ const NavBar = ({ user }) => {
               Home
             </NavLink>
           </li> */}
-          <li className="width80">
+          <li className>
             <NavLink to="/login" exact={true} activeClassName="active">
-              <div className="sign">Sign in</div>
+              <div className="sign flexRow alignCenter justCenter">Sign in</div>
             </NavLink>
           </li>
-          <li className="width80">
+          <li>
             <NavLink to="/sign-up" exact={true} activeClassName="active">
-              <div className="sign">Sign up</div>
+              <div className="sign flexRow alignCenter justCenter">Sign up</div>
             </NavLink>
           </li>
           {/* <li>
