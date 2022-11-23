@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate())
-      setLoaded(true);
+      .then(setLoaded(true));
     })();
   }, [dispatch]);
 
@@ -30,7 +30,7 @@ function App() {
   return (
     <ModalProvider>
     <BrowserRouter>
-      <NavBar />
+      <NavBar user={user}/>
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm />

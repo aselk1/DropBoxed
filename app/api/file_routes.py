@@ -67,7 +67,7 @@ def edit_file(id):
 
 @file_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
-def edit_file(id):
+def delete_file(id):
     file = File.query.get(id)
     if current_user.id == file.user_id:
         db.session.delete(file)

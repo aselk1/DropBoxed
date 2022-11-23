@@ -1,1 +1,72 @@
+body {
+    margin: 0;
+}
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.justCenter {
+    justify-content: center;
+}
+
+.justSpace {
+    justify-content: space-between;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.noBullets {
+    list-style-type: none;
+}
+
+.height48 {
+    height: 48px;
+}
+
+ul {
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.logoText {
+    font-weight: 700;
+    font-size: 22px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 15px;
+}
+
+.widthFull {
+    width: 100%;
+}
+
+.sign {
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 100;
+    width: 60px;
+}
+
+.widthFit {
+    width: fit-content;
+}
+
+.width80 {
+    width: 80px;
+}
+
+.width150 {
+    width: 160px;
+}
