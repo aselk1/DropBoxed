@@ -39,3 +39,38 @@ def post_file():
         db.session.commit()
         return file.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@file_routes.route('/<int:id>')
+@login_required
+def get_file(id):
+    file = File.query.get(id)
+    return file.to_dict()
+
+
+@file_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_file(id):
+    file = File.query.get(id)
+    if current_user.id == file.user_id:
+        form = FileForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            file.name = form.data['name']
+            file.desc = form.data['desc']
+            file.file_url = form.data['file_url']
+            file.private = form.data['private']
+            db.session.add(file)
+            db.session.commit()
+            return file.to_dict()
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': ['Unauthorized']}
+
+@file_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def edit_file(id):
+    file = File.query.get(id)
+    if current_user.id == file.user_id:
+        db.session.delete(file)
+        db.session.commit()
+        return {"data": "Deleted"}
+    return {'errors': ['Unauthorized']}
