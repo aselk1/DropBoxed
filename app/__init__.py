@@ -7,6 +7,7 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.auth_routes import auth_routes
 from .api.user_routes import user_routes
+from .api.file_routes import file_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -30,7 +31,7 @@ app.config.from_object(Config)
 
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-# app.register_blueprint(stories_routes, url_prefix='/api/stories')
+app.register_blueprint(file_routes, url_prefix='/api/files')
 # app.register_blueprint(followers_routes, url_prefix="/api/followers")
 # app.register_blueprint(comments_routes, url_prefix="/api/comments")
 
