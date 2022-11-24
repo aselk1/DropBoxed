@@ -3,8 +3,6 @@ from .folder_files import folder_files
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-if environment == "production":
-    folder_files.schema = SCHEMA
 
 
 class User(db.Model, UserMixin):

@@ -15,3 +15,6 @@ folder_files = db.Table(
         primary_key=True
     )
 )
+
+if environment == "production":
+    folder_files.schema = SCHEMA
