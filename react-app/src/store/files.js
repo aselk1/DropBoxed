@@ -75,8 +75,9 @@ export const fetchDeleteFile = (id) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
+    const data = response.json()
     dispatch(deleteStory(id));
-    return response;
+    return data;
   }
 };
 
