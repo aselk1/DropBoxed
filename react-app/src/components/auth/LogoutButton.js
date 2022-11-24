@@ -12,7 +12,11 @@ const LogoutButton = () => {
       .then(history.push('/'))
   };
 
-  return <div className='log-out' onClick={onLogout}>Logout</div>;
+  return (
+    <div className="sign flexRow alignCenter justCenter" onClick={onLogout}>
+      Logout
+    </div>
+  );
 };
 
 export default LogoutButton;

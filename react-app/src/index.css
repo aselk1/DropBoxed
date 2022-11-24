@@ -58,6 +58,7 @@ ul {
     font-weight: 100;
     width: 60px;
     height: 48px;
+    cursor: pointer;
 }
 
 .sign:hover {
@@ -70,4 +71,8 @@ ul {
 
 .width150 {
     width: 160px;
+}
+
+.pagePad {
+    padding-left: 20px;
 }
