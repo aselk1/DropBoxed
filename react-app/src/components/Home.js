@@ -14,8 +14,8 @@ const Home = ({user}) => {
             })();
     },[dispatch])
 
-    const deleteFile = (id) => {
-        const data = dispatch(fileActions.fetchDeleteFile(id))
+    const deleteFile = async (id) => {
+        const data = await dispatch(fileActions.fetchDeleteFile(id))
         console.log(data)
     }
 
