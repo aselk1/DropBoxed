@@ -33,6 +33,18 @@ const LoginForm = () => {
     return <Redirect to='/' />;
   }
 
+  const signInDemo = async (e) => {
+    e.preventDefault()
+    setErrors([]);
+    e.preventDefault();
+    const data = await dispatch(login("demo@aa.io", "password")).then(
+      history.push("/home")
+    );
+    if (data) {
+      setErrors(data);
+    }
+  };
+
   return (
     <form onSubmit={onLogin}>
       <div>
@@ -60,6 +72,7 @@ const LoginForm = () => {
           onChange={updatePassword}
         />
         <button type='submit'>Login</button>
+        <button onClick={signInDemo}>Demo</button>
       </div>
     </form>
   );

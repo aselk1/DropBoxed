@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 import favicon from './images/favicon.png'
 import "../index.css";
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, loaded }) => {
   return (
     <div className="flexRow height48 alignCenter">
-      <nav className="flexRow height48 justSpace widthFull">
+      {loaded && <nav className="flexRow height48 justSpace widthFull">
         <div className="flexRow alignCenter">
           <NavLink to="/" exact={true} activeClassName="active">
             <img src={favicon}></img>
@@ -18,22 +18,22 @@ const NavBar = ({ user }) => {
             </div>
           </NavLink>
         </div>
-        <ul className="flexRow noBullets alignCenter width150">
+        <ul className="flexRow noBullets alignCenter">
           {/* <li>
             <NavLink to="/" exact={true} activeClassName="active">
               Home
             </NavLink>
           </li> */}
-          <li className="width80">
+          {!user && <li className>
             <NavLink to="/login" exact={true} activeClassName="active">
-              <div className="sign">Sign in</div>
+              <div className="sign flexRow alignCenter justCenter">Sign in</div>
             </NavLink>
-          </li>
-          <li className="width80">
+          </li>}
+          {!user && <li>
             <NavLink to="/sign-up" exact={true} activeClassName="active">
-              <div className="sign">Sign up</div>
+              <div className="sign flexRow alignCenter justCenter">Sign up</div>
             </NavLink>
-          </li>
+          </li>}
           {/* <li>
           <NavLink to="/users" exact={true} activeClassName="active">
             Users
@@ -45,7 +45,7 @@ const NavBar = ({ user }) => {
             </li>
           )}
         </ul>
-      </nav>
+      </nav>}
     </div>
   );
 };

@@ -57,16 +57,22 @@ ul {
     padding-right: 10px;
     font-weight: 100;
     width: 60px;
+    height: 48px;
+    cursor: pointer;
+}
+
+.sign:hover {
+    background-color: rgba(211, 211, 211, 0.393);
 }
 
 .widthFit {
     width: fit-content;
 }
 
-.width80 {
-    width: 80px;
-}
-
 .width150 {
     width: 160px;
+}
+
+.pagePad {
+    padding-left: 20px;
 }
