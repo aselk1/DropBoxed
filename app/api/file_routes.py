@@ -87,9 +87,7 @@ def delete_file(id):
     file = File.query.get(id)
     if current_user.id == file.user_id:
         url = file.file_url.split(".com/")[1]
-        print(file.file_url.split(".com/")[1])
         data = delete_file_from_s3(url)
-        print(data)
         db.session.delete(file)
         db.session.commit()
         return {"data": data}
