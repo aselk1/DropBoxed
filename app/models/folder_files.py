@@ -5,13 +5,13 @@ folder_files = db.Table(
     db.Column(
         "folder_id",
         db.Integer,
-        db.ForeignKey("folders.id"),
+        db.ForeignKey(add_prefix_for_prod("folders.id")),
         primary_key=True
     ),
     db.Column(
         "file_id",
         db.Integer,
-        db.ForeignKey("files.id"),
+        db.ForeignKey(add_prefix_for_prod("files.id")),
         primary_key=True
     )
 )
