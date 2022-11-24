@@ -1,30 +1,10 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .folder_files import folder_files
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-# follows = db.Table(
-#     "follows",
-#     db.Column("follower_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
-#     db.Column("followed_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
-# )
-
-# like_story = db.Table(
-#     "like_story",
-#     db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"))),
-#     db.Column("story_id", db.Integer, db.ForeignKey(add_prefix_for_prod("stories.id")))
-# )
-
-# like_comment = db.Table(
-#     "like_comment",
-#     db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"))),
-#     db.Column("comment_id", db.Integer, db.ForeignKey(add_prefix_for_prod("comments.id")))
-# )
-
 if environment == "production":
-    pass
-    # follows.schema = SCHEMA
-    # like_story.schema = SCHEMA
-    # like_comment.schema = SCHEMA
+    folder_files.schema = SCHEMA
 
 
 class User(db.Model, UserMixin):
@@ -37,30 +17,6 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-
-
-    # followers = db.relationship(
-    #     "User",
-    #     secondary=follows,
-    #     primaryjoin=(follows.c.followed_id == id),
-    #     secondaryjoin=(follows.c.follower_id == id),
-    #     backref=db.backref("following", lazy="dynamic"),
-    #     lazy="dynamic",
-    # )
-
-    # liked = db.relationship(
-    #     "Story",
-    #     secondary=like_story,
-    #     lazy='dynamic',
-    #     back_populates = "liked_story_user"
-    # )
-
-    # liked_comment = db.relationship(
-    #     "Comment",
-    #     secondary=like_comment,
-    #     lazy='dynamic',
-    #     back_populates = "liked_comment_user"
-    # )
 
 
     @property
