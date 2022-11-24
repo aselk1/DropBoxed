@@ -15,7 +15,8 @@ const Home = ({user}) => {
     },[dispatch])
 
     const deleteFile = (id) => {
-        dispatch(fileActions.fetchDeleteFile(id))
+        const data = dispatch(fileActions.fetchDeleteFile(id))
+        console.log(data)
     }
 
   return (

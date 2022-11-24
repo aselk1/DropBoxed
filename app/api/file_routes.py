@@ -92,5 +92,5 @@ def delete_file(id):
         print(data)
         db.session.delete(file)
         db.session.commit()
-        return {"data": "Deleted"}
+        return {"data": data}
     return {'errors': ['Unauthorized']}
