@@ -3,25 +3,24 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as fileActions from '../../store/files'
 
-const FileForm = ({setShowModal}) => {
+const EditFileForm = ({file, setShowModal}) => {
   const dispatch = useDispatch()
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("")
-  const [desc, setDesc] = useState("");
-  const [priv, setPriv] = useState(0)
-  const [file, setFile] = useState(null);
+  const [name, setName] = useState(file.name)
+  const [desc, setDesc] = useState(file.desc);
+  const [priv, setPriv] = useState(file.private)
+  const [newFile, setNewFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
 
   const addFile = (e) => {
     e.preventDefault();
-    console.log(priv)
     setImageLoading(true)
     //reset errors array
     setErrors([]);
-    const data = { name, desc, priv, file };
+    const data = { name, desc, priv, newFile };
     return (
       dispatch(
-        fileActions.fetchPostFile(data, setShowModal))
+        fileActions.fetchEditFile(data, setShowModal, file.id))
         //catch res and or errors
         .catch(async (res) => {
           const data = await res.json();
@@ -35,7 +34,7 @@ const FileForm = ({setShowModal}) => {
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size / 1000000 <= 10) setFile(file);
+      if (file.size / 1000000 <= 10) setNewFile(file);
       else {
         e.target.value = "";
         alert("File size must be 10MB or less.");
@@ -56,7 +55,7 @@ const FileForm = ({setShowModal}) => {
 
   return (
     <form onSubmit={addFile}>
-      <h2>Upload File</h2>
+      <h2>Edit File</h2>
       <div>
         <label htmlFor="name">Name</label>
         <input
@@ -87,7 +86,6 @@ const FileForm = ({setShowModal}) => {
           type="file"
           // value={url}
           onChange={updateFile}
-          required
         />
         <button type="submit">Add File</button>
         {imageLoading && <p>Loading...</p>}
@@ -96,4 +94,4 @@ const FileForm = ({setShowModal}) => {
   );
 };
 
-export default FileForm;
+export default EditFileForm;

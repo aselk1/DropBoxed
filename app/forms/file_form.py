@@ -8,4 +8,6 @@ class FileForm(FlaskForm):
     name = StringField(
         'name', validators=[DataRequired()])
     desc = StringField('desc')
-    private = BooleanField('private', validators=[DataRequired()])
+    private = BooleanField('private', validators=[DataRequired()],
+    # false_values=(0, '0')
+    )
