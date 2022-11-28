@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request
 import json
 from flask_login import current_user, login_user, logout_user, login_required
 from app.awsS3 import (
-    upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3)
+    upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3, download_file_from_s3)
 from app.models import File, db
 from app.forms import FileForm
 
@@ -25,6 +25,15 @@ def get_files():
     files = File.query.all()
     return {'files': [file.to_dict() for file in files]}
     # return {file.id: file.to_dict() for file in files}
+
+@file_routes.route('/<int:id>/download')
+@login_required
+def download_file(id):
+    file = File.query.get(id)
+    url = file.file_url.split(".com/")[1]
+    data = download_file_from_s3(url)
+    return {"data": data}
+    # return {'files': [file.to_dict() for file in files]}
 
 @file_routes.route('', methods=['POST'])
 @login_required

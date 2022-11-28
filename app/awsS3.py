@@ -53,3 +53,16 @@ def delete_file_from_s3(name):
         return {"errors": str(e)}
 
     return {"success": "deleted"}
+
+def download_file_from_s3(name):
+    try:
+        s3.download_file(
+            BUCKET_NAME,
+            name,
+            f"/Users/{os.path.expanduser('~').split('/')[2]}/Downloads/{name}"
+            )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
+
+    return {"success": "downloaded"}

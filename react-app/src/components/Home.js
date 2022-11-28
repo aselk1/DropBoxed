@@ -27,6 +27,11 @@ const Home = ({user}) => {
       const data = await dispatch(folderActions.fetchDeleteFolder(id));
     };
 
+    const downloadFile = async (id) => {
+      const data = await dispatch(fileActions.fetchDownload(id))
+      console.log(data)
+    }
+
   return (
     <div className="pagePad">
       <h2>Home</h2>
@@ -45,6 +50,7 @@ const Home = ({user}) => {
               //   <button onClick={(e) => editFile(file.id)}>Edit</button>
               <EditFileFormModal file={file} />
             )}
+            <button onClick={(e) => downloadFile(file.id)}>Download</button>
           </div>
         ))}
       {folders &&

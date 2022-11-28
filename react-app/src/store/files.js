@@ -23,6 +23,14 @@ const deleteStory = (id) => ({
   payload: id,
 });
 
+export const fetchDownload = (id) => async (dispatch) => {
+  const res = await fetch(`/api/files/${id}/download`);
+  if (res.ok) {
+    const data = await res.json();
+    return data;
+  }
+};
+
 export const fetchAllFiles = () => async (dispatch) => {
   const res = await fetch("/api/files");
   if (res.ok) {
@@ -46,20 +54,20 @@ export const fetchPostFile = (data, setShowModal) => async (dispatch) => {
   if (response.ok) {
     const file = await response.json();
     dispatch(postFile(file));
-    setShowModal(false)
+    setShowModal(false);
     return response;
   }
 };
 
 export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   const { name, desc, priv, newFile } = data;
-  console.log(data)
+  console.log(data);
   const formData = new FormData();
   formData.append("name", name);
   formData.append("desc", desc);
   formData.append("private", priv);
   formData.append("file", newFile);
-  console.log(formData.values())
+  console.log(formData.values());
   const response = await fetch(`/api/files/${id}`, {
     method: "PUT",
     body: formData,
@@ -96,7 +104,7 @@ export const fetchDeleteFile = (id) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    const data = response.json()
+    const data = response.json();
     dispatch(deleteStory(id));
     return data;
   }
@@ -118,8 +126,8 @@ export default function reducer(state = initialState, action) {
     case EDIT_FILE:
       newState = Object.assign({}, state);
       newState.files = newState.files.map((el) => {
-        if (el.id === action.payload.id) return action.payload
-        return el
+        if (el.id === action.payload.id) return action.payload;
+        return el;
       });
       return newState;
     // case EDIT_STORY:
