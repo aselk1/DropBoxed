@@ -9,7 +9,7 @@ const LogoutButton = () => {
 
   const onLogout = async (e) => {
     await dispatch(logout())
-      .then(history.push('/'))
+      // .then(history.push('/'))
   };
 
   return (

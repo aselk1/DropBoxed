@@ -1,5 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+html {
+    height: 100%;
+}
+
 body {
     margin: 0;
+    height: 100%;
+}
+
+#root {
+    height:100%
 }
 
 a {
@@ -53,6 +64,10 @@ ul {
 .widthFull {
     width: 100%;
 }
+.heightFull {
+    height: 100%;
+    min-height: 100%;
+}
 
 .sign {
     font-size: 20px;
@@ -80,4 +95,24 @@ ul {
 
 .pagePad {
     padding-left: 20px;
+}
+
+.menu {
+    padding-left: 0px;
+    width: 200px;
+    height: 100%;
+    min-height: 100%;
+    border: solid rgba(211, 211, 211, 0.349) 2px;
+    background-color: rgba(211, 211, 211, 0.349);
+}
+
+.menuPadding {
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+.menuButton {
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 10px;
 }

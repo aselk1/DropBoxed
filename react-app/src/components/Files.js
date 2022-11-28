@@ -9,20 +9,17 @@ import FolderFormModal from "./FolderFormModal";
 import EditFolderFormModal from "./EditFolderFormModal";
 import MenuBar from "./MenuBar";
 
-const Home = ({ user, loaded }) => {
+const Files = ({ user, loaded }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
-  const folders = useSelector((state) => state.folders.folders);
+  // const folders = useSelector((state) => state.folders.folders);
 
-
-  console.log(user)
   useEffect(() => {
     (async () => {
-      console.log(user);
       if (user.id) {
         console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
-        await dispatch(folderActions.fetchAllFolders());
+        // await dispatch(folderActions.fetchAllFolders());
       }
     })();
   }, [dispatch]);
@@ -31,9 +28,9 @@ const Home = ({ user, loaded }) => {
     const data = await dispatch(fileActions.fetchDeleteFile(id));
   };
 
-  const deleteFolder = async (id) => {
-    const data = await dispatch(folderActions.fetchDeleteFolder(id));
-  };
+  // const deleteFolder = async (id) => {
+  //   const data = await dispatch(folderActions.fetchDeleteFolder(id));
+  // };
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
@@ -44,10 +41,10 @@ const Home = ({ user, loaded }) => {
     <div className="flexRow heightFull">
         <div className="menu">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol">
-        <h2>Home</h2>
+        <h2>Files</h2>
         <div>
           <FileFormModal />
-          <FolderFormModal />
+          {/* <FolderFormModal /> */}
         </div>
         {files &&
           files.map((file) => (
@@ -66,7 +63,7 @@ const Home = ({ user, loaded }) => {
               </a>
             </div>
           ))}
-        {folders &&
+        {/* {folders &&
           folders.map((folder) => (
             <div>
               {folder.name}
@@ -78,10 +75,10 @@ const Home = ({ user, loaded }) => {
                 <EditFolderFormModal folder={folder} />
               )}
             </div>
-          ))}
+          ))} */}
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Files;

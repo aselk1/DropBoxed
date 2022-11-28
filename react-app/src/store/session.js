@@ -69,8 +69,8 @@ export const logout = () => async (dispatch) => {
 
   if (response.ok) {
     await dispatch(removeUser());
-    // await dispatch(removeFiles());
-    // await dispatch(removeFolders());
+    await dispatch(removeFiles());
+    await dispatch(removeFolders());
   }
 };
 
