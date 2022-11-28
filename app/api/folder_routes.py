@@ -55,6 +55,8 @@ def edit_file(id):
     if current_user.id == folder.user_id:
         form = FileForm()
         form['csrf_token'].data = request.cookies['csrf_token']
+        print(form.validate_on_submit())
+        print(form.data)
         if form.validate_on_submit():
             folder.name = form.data['name']
             folder.private = form.data['private']

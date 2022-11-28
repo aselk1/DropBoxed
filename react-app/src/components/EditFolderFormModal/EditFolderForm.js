@@ -31,7 +31,7 @@ const EditFolderForm = ({folder, setShowModal}) => {
 
 
   const setPrivate = () => {
-    if (priv === 0) setPriv(1)
+    if (priv === 0 | priv === false) setPriv(1)
     else setPriv(0)
   }
 
@@ -53,7 +53,7 @@ const EditFolderForm = ({folder, setShowModal}) => {
           type="checkbox"
           // placeholder="File Name"
           checked={priv}
-          onChange={setPrivate}
+          onClick={(e) => setPrivate()}
         />
         <button type="submit">Edit Folder</button>
         {imageLoading && <p>Loading...</p>}
