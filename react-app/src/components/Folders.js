@@ -9,16 +9,13 @@ import FolderFormModal from "./FolderFormModal";
 import EditFolderFormModal from "./EditFolderFormModal";
 import MenuBar from "./MenuBar";
 
-const Home = ({ user, loaded }) => {
+const Folders = ({ user, loaded }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
   const folders = useSelector((state) => state.folders.folders);
 
-
-  console.log(user)
   useEffect(() => {
     (async () => {
-      console.log(user);
       if (user.id) {
         console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
@@ -44,12 +41,12 @@ const Home = ({ user, loaded }) => {
     <div className="flexRow heightFull">
         <div className="menu">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol">
-        <h2>Home</h2>
+        <h2>Folders</h2>
         <div>
-          <FileFormModal />
+          {/* <FileFormModal /> */}
           <FolderFormModal />
         </div>
-        {files &&
+        {/* {files &&
           files.map((file) => (
             <div>
               {file.name}
@@ -57,15 +54,13 @@ const Home = ({ user, loaded }) => {
                 <button onClick={(e) => deleteFile(file.id)}>Delete</button>
               )}
               {user.id === file.user_id && (
-                //   <button onClick={(e) => editFile(file.id)}>Edit</button>
                 <EditFileFormModal file={file} />
               )}
-              {/* <button onClick={(e) => downloadFile(file.id)}>Download</button> */}
               <a href={file.file_url} download>
                 Download
               </a>
             </div>
-          ))}
+          ))} */}
         {folders &&
           folders.map((folder) => (
             <div>
@@ -84,4 +79,4 @@ const Home = ({ user, loaded }) => {
   );
 };
 
-export default Home;
+export default Folders;
