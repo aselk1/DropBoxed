@@ -2,6 +2,11 @@ const POST_FOLDER = "folders/POST_FOLDER";
 const EDIT_FOLDER = "folders/EDIT_FOLDER";
 const GET_FOLDERS = "folders/GET_FOLDERS";
 const DELETE_FOLDER = "folders/DELETE_FOLDERS";
+const REMOVE_FOLDERS = "files/REMOVE_FOLDERS";
+
+export const removeFolders = () => ({
+  type: REMOVE_FOLDERS,
+});
 
 const postFolder = (folder) => ({
   type: POST_FOLDER,
@@ -77,7 +82,7 @@ export const fetchDeleteFolder = (id) => async (dispatch) => {
   }
 };
 
-const initialState = [];
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   let newState;
@@ -102,6 +107,9 @@ export default function reducer(state = initialState, action) {
       newState.folders = newState.folders.filter((el) => {
         return el.id !== action.payload;
       });
+      return newState;
+    case REMOVE_FOLDERS:
+      newState = {};
       return newState;
     default:
       return state;

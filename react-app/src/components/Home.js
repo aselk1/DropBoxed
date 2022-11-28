@@ -1,37 +1,39 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import * as fileActions from '../store/files'
-import * as folderActions from '../store/folders'
+import * as fileActions from "../store/files";
+import * as folderActions from "../store/folders";
 import FileFormModal from "./FileFormModal";
 import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
 import EditFolderFormModal from "./EditFolderFormModal";
 
-const Home = ({user}) => {
-    const dispatch = useDispatch();
-    const files = useSelector(state => state.files.files)
-    const folders = useSelector(state => state.folders.folders)
+const Home = ({ user }) => {
+  const dispatch = useDispatch();
+  const files = useSelector((state) => state.files.files);
+  const folders = useSelector((state) => state.folders.folders);
 
-    useEffect(() => {
-            (async () => {
-                await dispatch(fileActions.fetchAllFiles())
-                await dispatch(folderActions.fetchAllFolders())
-            })();
-    },[dispatch])
+  useEffect(() => {
+    (async () => {
+      if (user.id) {
+        await dispatch(fileActions.fetchAllFiles());
+        await dispatch(folderActions.fetchAllFolders());
+      }
+    })();
+  }, [dispatch]);
 
-    const deleteFile = async (id) => {
-        const data = await dispatch(fileActions.fetchDeleteFile(id))
-    }
+  const deleteFile = async (id) => {
+    const data = await dispatch(fileActions.fetchDeleteFile(id));
+  };
 
-    const deleteFolder = async (id) => {
-      const data = await dispatch(folderActions.fetchDeleteFolder(id));
-    };
+  const deleteFolder = async (id) => {
+    const data = await dispatch(folderActions.fetchDeleteFolder(id));
+  };
 
-    const downloadFile = async (id) => {
-      const data = await dispatch(fileActions.fetchDownload(id))
-      console.log(data)
-    }
+  const downloadFile = async (id) => {
+    const data = await dispatch(fileActions.fetchDownload(id));
+    console.log(data);
+  };
 
   return (
     <div className="pagePad">
