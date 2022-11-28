@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 import json
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import or_
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3)
 from app.models import File, Folder, db
@@ -22,7 +23,7 @@ folder_routes = Blueprint('folders', __name__)
 @folder_routes.route('')
 @login_required
 def get_files():
-    folders = Folder.query.all()
+    folders = Folder.query.filter(or_(Folder.private == False, Folder.user_id == current_user.id))
     return {'folders': [folder.to_dict() for folder in folders]}
 
 @folder_routes.route('', methods=['POST'])
@@ -45,6 +46,9 @@ def post_folder():
 @login_required
 def get_folder(id):
     folder = Folder.query.get(id)
+    if current_user.id != folder.id:
+        if folder.private == True:
+            return {"Error": "Folder is private."}
     return folder.to_dict()
 
 
