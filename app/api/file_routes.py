@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, session, request
+import json
 from flask_login import current_user, login_user, logout_user, login_required
 from app.awsS3 import (
-    upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3)
+    upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3, download_file_from_s3)
 from app.models import File, db
 from app.forms import FileForm
 
@@ -25,6 +26,15 @@ def get_files():
     return {'files': [file.to_dict() for file in files]}
     # return {file.id: file.to_dict() for file in files}
 
+@file_routes.route('/<int:id>/download')
+@login_required
+def download_file(id):
+    file = File.query.get(id)
+    url = file.file_url.split(".com/")[1]
+    data = download_file_from_s3(url)
+    return {"data": data}
+    # return {'files': [file.to_dict() for file in files]}
+
 @file_routes.route('', methods=['POST'])
 @login_required
 def post_file():
@@ -36,6 +46,8 @@ def post_file():
     file.filename = get_unique_filename(file.filename)
     form = FileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
+    print(form.validate_on_submit())
     if form.validate_on_submit():
         upload = upload_file_to_s3(file)
         if "url" not in upload:
@@ -66,15 +78,31 @@ def get_file(id):
 @file_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def edit_file(id):
+    # print(request.files['file'])
+    # if "file" not in request.files:
+    #     return {"errors": "file required"}, 400
+    new_file = None
+    if "file" in request.files:
+        new_file = request.files["file"]
+        if not allowed_file(new_file.filename):
+            return {"errors": "file type not permitted"}, 400
+        new_file.filename = get_unique_filename(new_file.filename)
     file = File.query.get(id)
+    url = file.file_url
     if current_user.id == file.user_id:
         form = FileForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
+            if new_file:
+                upload = upload_file_to_s3(new_file)
+                if "url" not in upload:
+                    return upload, 400
+                deleted = delete_file_from_s3(file.file_url.split(".com/")[1])
+                url = upload["url"]
             file.name = form.data['name']
             file.desc = form.data['desc']
-            file.file_url = form.data['file_url']
             file.private = form.data['private']
+            file.file_url = url
             db.session.add(file)
             db.session.commit()
             return file.to_dict()

@@ -25,5 +25,6 @@ class Folder(db.Model):
             "id": self.id,
             "name": self.name,
             "private": self.private,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            "files": [file.to_dict() for file in self.files]
         }

@@ -2,9 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import files from './files'
+import folders from './folders'
+
 const rootReducer = combineReducers({
   session,
-  files
+  files,
+  folders
 });
 
 
