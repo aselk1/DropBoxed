@@ -33,7 +33,8 @@ def upload_file_to_s3(file, acl="public-read"):
             file.filename,
             ExtraArgs={
                 "ACL": acl,
-                "ContentType": file.content_type
+                "ContentType": file.content_type,
+                "ContentDisposition": 'attachment'
             }
         )
     except Exception as e:
@@ -59,7 +60,7 @@ def download_file_from_s3(name):
         s3.download_file(
             BUCKET_NAME,
             name,
-            f"/Users/{os.path.expanduser('~').split('/')[2]}/Downloads/{name}"
+            f"{os.path.expanduser('~')}/Downloads/{name}"
             )
     except Exception as e:
         # in case the our s3 upload fails

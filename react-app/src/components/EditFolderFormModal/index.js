@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import FileForm from "./FileForm";
+import EditFolderForm from "./EditFolderForm";
 
-function FileFormModal({folder}) {
+function EditFolderFormModal({folder}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Upload</button>
+      <button onClick={() => setShowModal(true)}>Edit</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <FileForm setShowModal={setShowModal} />
+          <EditFolderForm setShowModal={setShowModal} folder={folder} />
         </Modal>
       )}
     </>
   );
 }
 
-export default FileFormModal;
+export default EditFolderFormModal;

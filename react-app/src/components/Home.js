@@ -6,6 +6,7 @@ import * as folderActions from '../store/folders'
 import FileFormModal from "./FileFormModal";
 import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
+import EditFolderFormModal from "./EditFolderFormModal";
 
 const Home = ({user}) => {
     const dispatch = useDispatch();
@@ -50,7 +51,10 @@ const Home = ({user}) => {
               //   <button onClick={(e) => editFile(file.id)}>Edit</button>
               <EditFileFormModal file={file} />
             )}
-            <button onClick={(e) => downloadFile(file.id)}>Download</button>
+            {/* <button onClick={(e) => downloadFile(file.id)}>Download</button> */}
+            <a href={file.file_url} download>
+              Download
+            </a>
           </div>
         ))}
       {folders &&
@@ -59,6 +63,10 @@ const Home = ({user}) => {
             {folder.name}
             {user.id === folder.user_id && (
               <button onClick={(e) => deleteFolder(folder.id)}>Delete</button>
+            )}
+            {user.id === folder.user_id && (
+              //   <button onClick={(e) => editFile(file.id)}>Edit</button>
+              <EditFolderFormModal folder={folder} />
             )}
           </div>
         ))}

@@ -3,19 +3,19 @@ const EDIT_FOLDER = "folders/EDIT_FOLDER";
 const GET_FOLDERS = "folders/GET_FOLDERS";
 const DELETE_FOLDER = "folders/DELETE_FOLDERS";
 
-const postFolder = (file) => ({
+const postFolder = (folder) => ({
   type: POST_FOLDER,
-  payload: file,
+  payload: folder,
 });
 
-const editFolder = (file) => ({
+const editFolder = (folder) => ({
   type: EDIT_FOLDER,
-  payload: file,
+  payload: folder,
 });
 
-const getFolders = (files) => ({
+const getFolders = (folders) => ({
   type: GET_FOLDERS,
-  payload: files,
+  payload: folders,
 });
 
 const deleteFolder = (id) => ({
@@ -50,21 +50,17 @@ export const fetchPostFolder = (data, setShowModal) => async (dispatch) => {
 };
 
 export const fetchEditFolder = (data, setShowModal, id) => async (dispatch) => {
-  const { name, desc, priv, newFile } = data;
-  console.log(data);
+  const { name, priv } = data;
   const formData = new FormData();
   formData.append("name", name);
-  formData.append("desc", desc);
   formData.append("private", priv);
-  formData.append("file", newFile);
-  console.log(formData.values());
-  const response = await fetch(`/api/files/${id}`, {
+  const response = await fetch(`/api/folders/${id}`, {
     method: "PUT",
     body: formData,
   });
   if (response.ok) {
-    const file = await response.json();
-    dispatch(editFolder(file));
+    const folder = await response.json();
+    dispatch(editFolder(folder));
     setShowModal(false);
     return response;
   }
@@ -96,7 +92,7 @@ export default function reducer(state = initialState, action) {
       return newState;
     case EDIT_FOLDER:
       newState = Object.assign({}, state);
-      newState.files = newState.files.map((el) => {
+      newState.folders = newState.folders.map((el) => {
         if (el.id === action.payload.id) return action.payload;
         return el;
       });
