@@ -23,12 +23,25 @@ folder_files_routes = Blueprint('folder_files', __name__)
 
 @folder_files_routes.route('/<int:folder_id>/<int:file_id>', methods=['POST'])
 @login_required
-def post_folder(folder_id, file_id):
+def post_folder_file(folder_id, file_id):
     folder = Folder.query.get(folder_id)
     file = File.query.get(file_id)
     print(file)
     if current_user.id == folder.user_id:
         folder.files.append(file)
+        db.session.add(folder)
+        db.session.commit()
+        return folder.to_dict()
+    return {'errors': ['Unauthorized']}
+
+@folder_files_routes.route('/<int:folder_id>/<int:file_id>', methods=['DELETE'])
+@login_required
+def delete_folder_file(folder_id, file_id):
+    folder = Folder.query.get(folder_id)
+    file = File.query.get(file_id)
+    print(file)
+    if current_user.id == folder.user_id:
+        folder.files.remove(file)
         db.session.add(folder)
         db.session.commit()
         return folder.to_dict()

@@ -39,6 +39,11 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
     await dispatch(folderActions.fetchAddFile(folder.id, fileId))
   }
 
+  const removeFile = async (fileId, e) => {
+    e.preventDefault();
+    await dispatch(folderActions.fetchRemoveFile(folder.id, fileId));
+  };
+
   return (
     <form onSubmit={addFolder}>
       <h2>Edit Folder</h2>
@@ -56,18 +61,23 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
           name="private"
           type="checkbox"
           // placeholder="File Name"
-          checked={priv}
+          defaultChecked={priv}
           onClick={(e) => setPrivate()}
         />
         <div>
           <h4>Remove Files</h4>
           {folder &&
-            folder.files.map((file) => (
+            folder.files.map((file) => {
+              if (folder.files.map((file) => file.id).includes(file.id)) {
+                return (
               <div>
                 {file.name}
-                <button>Remove</button>
+                <button onClick={(e) => removeFile(file.id, e)}>Remove</button>
               </div>
-            ))}
+                )
+              }
+              return null
+            })}
         </div>
         <div>
           <h4>Add Files</h4>
