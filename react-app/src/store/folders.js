@@ -3,6 +3,12 @@ const EDIT_FOLDER = "folders/EDIT_FOLDER";
 const GET_FOLDERS = "folders/GET_FOLDERS";
 const DELETE_FOLDER = "folders/DELETE_FOLDERS";
 const REMOVE_FOLDERS = "files/REMOVE_FOLDERS";
+const ADD_FILE = "folders/ADD_FILE"
+
+const addFile = (folder) => ({
+  type: ADD_FILE,
+  payload: folder,
+});
 
 export const removeFolders = () => ({
   type: REMOVE_FOLDERS,
@@ -82,6 +88,17 @@ export const fetchDeleteFolder = (id) => async (dispatch) => {
   }
 };
 
+export const fetchAddFile = (folderId, fileId) => async (dispatch) => {
+    const res = await fetch(`/api/folder_files/${folderId}/${fileId}`, {
+        method: "POST"
+    })
+    if (res.ok) {
+        const folder = await res.json()
+        dispatch(addFile(folder))
+        return res
+    }
+}
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {
@@ -96,6 +113,13 @@ export default function reducer(state = initialState, action) {
       newState.folders.push(action.payload);
       return newState;
     case EDIT_FOLDER:
+      newState = Object.assign({}, state);
+      newState.folders = newState.folders.map((el) => {
+        if (el.id === action.payload.id) return action.payload;
+        return el;
+      });
+      return newState;
+    case ADD_FILE:
       newState = Object.assign({}, state);
       newState.folders = newState.folders.map((el) => {
         if (el.id === action.payload.id) return action.payload;

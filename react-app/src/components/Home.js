@@ -16,6 +16,7 @@ const Home = ({ user }) => {
   useEffect(() => {
     (async () => {
       if (user.id) {
+        console.log("Home useEffect")
         await dispatch(fileActions.fetchAllFiles());
         await dispatch(folderActions.fetchAllFolders());
       }

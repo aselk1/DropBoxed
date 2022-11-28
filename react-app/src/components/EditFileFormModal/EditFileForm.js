@@ -56,7 +56,7 @@ const EditFileForm = ({file, setShowModal}) => {
   return (
     <form onSubmit={addFile}>
       <h2>Edit File</h2>
-      <div>
+      <div className="flexCol">
         <label htmlFor="name">Name</label>
         <input
           name="name"
