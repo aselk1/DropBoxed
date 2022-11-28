@@ -12,6 +12,11 @@ a {
     flex-direction: row;
 }
 
+.flexCol {
+    display: flex;
+    flex-direction: column;
+}
+
 .justCenter {
     justify-content: center;
 }

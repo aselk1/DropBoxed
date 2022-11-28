@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .folder_files import folder_files
+from flask_login import current_user
 
 
 class Folder(db.Model):
@@ -26,5 +27,5 @@ class Folder(db.Model):
             "name": self.name,
             "private": self.private,
             "user_id": self.user_id,
-            "files": [file.to_dict() for file in self.files]
+            "files": [file.to_dict() for file in self.files if file.private == False or file.user_id == current_user.id]
         }

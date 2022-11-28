@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 import json
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import or_
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3, download_file_from_s3)
 from app.models import File, db
@@ -22,7 +23,7 @@ file_routes = Blueprint('files', __name__)
 @file_routes.route('')
 @login_required
 def get_files():
-    files = File.query.all()
+    files = File.query.filter(or_(File.private == False, File.user_id == current_user.id))
     return {'files': [file.to_dict() for file in files]}
     # return {file.id: file.to_dict() for file in files}
 
@@ -30,6 +31,9 @@ def get_files():
 @login_required
 def download_file(id):
     file = File.query.get(id)
+    if current_user.id != file.id:
+        if file.private == True:
+            return {"Error": "File is private."}
     url = file.file_url.split(".com/")[1]
     data = download_file_from_s3(url)
     return {"data": data}
@@ -72,6 +76,9 @@ def post_file():
 @login_required
 def get_file(id):
     file = File.query.get(id)
+    if current_user.id != file.id:
+        if file.private == True:
+            return {"Error": "File is private."}
     return file.to_dict()
 
 

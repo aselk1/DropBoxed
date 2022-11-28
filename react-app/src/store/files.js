@@ -2,6 +2,11 @@ const POST_FILE = "files/POST_FILE";
 const EDIT_FILE = "stories/EDIT_FILE";
 const GET_FILES = "files/GET_FILES";
 const DELETE_FILE = "files/DELETE_FILE";
+const REMOVE_FILES = "files/REMOVE_FILES";
+
+export const removeFiles = () => ({
+  type: REMOVE_FILES
+})
 
 const postFile = (file) => ({
   type: POST_FILE,
@@ -80,25 +85,6 @@ export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   }
 };
 
-// export const fetchEditStory = (id, story) => async (dispatch) => {
-//   const { newTitle, newBody } = story;
-//   // const formData = new FormData();
-//   // formData.append("title", newTitle);
-//   // formData.append("body", newBody);
-//   const res = await fetch(`/api/stories/${id}`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(story),
-//   });
-//   if (res.ok) {
-//     const data = await res.json();
-//     dispatch(editStory(data));
-//     return data;
-//   }
-// };
-
 export const fetchDeleteFile = (id) => async (dispatch) => {
   const response = await fetch(`/api/files/${id}`, {
     method: "DELETE",
@@ -110,7 +96,7 @@ export const fetchDeleteFile = (id) => async (dispatch) => {
   }
 };
 
-const initialState = [];
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   let newState;
@@ -130,10 +116,6 @@ export default function reducer(state = initialState, action) {
         return el;
       });
       return newState;
-    // case EDIT_STORY:
-    //   newState = Object.assign({}, state);
-    //   newState[action.payload.id] = action.payload;
-    //   return newState;
     case DELETE_FILE:
       newState = Object.assign({}, state);
       //   newState.files = [...newState.files];
@@ -141,6 +123,9 @@ export default function reducer(state = initialState, action) {
         return el.id !== action.payload;
       });
       return newState;
+    case REMOVE_FILES:
+      newState = {}
+      return newState
     default:
       return state;
   }

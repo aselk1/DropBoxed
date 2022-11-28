@@ -49,14 +49,14 @@ const EditFileForm = ({file, setShowModal}) => {
   };
 
   const setPrivate = () => {
-    if (priv === 0) setPriv(1)
+    if (priv === 0 | priv === false) setPriv(1)
     else setPriv(0)
   }
 
   return (
     <form onSubmit={addFile}>
       <h2>Edit File</h2>
-      <div>
+      <div className="flexCol">
         <label htmlFor="name">Name</label>
         <input
           name="name"

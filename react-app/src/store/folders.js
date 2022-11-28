@@ -2,6 +2,23 @@ const POST_FOLDER = "folders/POST_FOLDER";
 const EDIT_FOLDER = "folders/EDIT_FOLDER";
 const GET_FOLDERS = "folders/GET_FOLDERS";
 const DELETE_FOLDER = "folders/DELETE_FOLDERS";
+const REMOVE_FOLDERS = "files/REMOVE_FOLDERS";
+const ADD_FILE = "folders/ADD_FILE"
+const REMOVE_FILE = "folders/REMOVE_FILE"
+
+const addFile = (folder) => ({
+  type: ADD_FILE,
+  payload: folder,
+});
+
+const removeFile = (folder) => ({
+  type: REMOVE_FILE,
+  payload: folder,
+});
+
+export const removeFolders = () => ({
+  type: REMOVE_FOLDERS,
+});
 
 const postFolder = (folder) => ({
   type: POST_FOLDER,
@@ -77,7 +94,29 @@ export const fetchDeleteFolder = (id) => async (dispatch) => {
   }
 };
 
-const initialState = [];
+export const fetchAddFile = (folderId, fileId) => async (dispatch) => {
+    const res = await fetch(`/api/folder_files/${folderId}/${fileId}`, {
+        method: "POST"
+    })
+    if (res.ok) {
+        const folder = await res.json()
+        dispatch(addFile(folder))
+        return res
+    }
+}
+
+export const fetchRemoveFile = (folderId, fileId) => async (dispatch) => {
+  const res = await fetch(`/api/folder_files/${folderId}/${fileId}`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    const folder = await res.json();
+    dispatch(removeFile(folder));
+    return res;
+  }
+};
+
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   let newState;
@@ -97,11 +136,28 @@ export default function reducer(state = initialState, action) {
         return el;
       });
       return newState;
+    case ADD_FILE:
+      newState = Object.assign({}, state);
+      newState.folders = newState.folders.map((el) => {
+        if (el.id === action.payload.id) return action.payload;
+        return el;
+      });
+      return newState;
+    case REMOVE_FILE:
+      newState = Object.assign({}, state);
+      newState.folders = newState.folders.map((el) => {
+        if (el.id === action.payload.id) return action.payload;
+        return el;
+      });
+      return newState;
     case DELETE_FOLDER:
       newState = Object.assign({}, state);
       newState.folders = newState.folders.filter((el) => {
         return el.id !== action.payload;
       });
+      return newState;
+    case REMOVE_FOLDERS:
+      newState = {};
       return newState;
     default:
       return state;

@@ -14,26 +14,26 @@ def seed_files():
         name='File2',
         desc='File2',
         file_url='https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg',
-        user_id=2,
+        user_id=1,
         private=True
         )
     file3 = File(
         name='File3',
         file_url='https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg',
-        user_id=3,
+        user_id=1,
         private=False
         )
     file4 = File(
         name='File4',
         file_url='https://i.natgeofe.com/n/8022bf25-d5ef-48c1-b460-dbac1448e122/09-9226610_uploadsmember665562yourshot-665562-9226610jpg_igdjhxksrjifxjzu4rgbsw37bhp3eflutfvvbpyjwjhzlmh4iziq_3000x2000.jpg',
-        user_id=4,
+        user_id=2,
         private=True
     )
     file5 = File(
         name='File5',
         desc='File5',
         file_url='https://petapixel.com/assets/uploads/2021/06/Social-Medias-Impact-on-Landscape-and-Nature-Photography.jpg',
-        user_id=5,
+        user_id=2,
         private=False
         )
     db.session.add(file1)
@@ -43,14 +43,19 @@ def seed_files():
     db.session.add(file5)
 
     folder1 = Folder(
-        name='File1',
+        name='Folder1',
         user_id=1,
         private=False
         )
     folder2 = Folder(
-        name='File2',
+        name='Folder2',
         user_id=2,
         private=True
+        )
+    folder3 = Folder(
+        name='Folder3',
+        user_id=2,
+        private=False
         )
 
     db.session.add(folder1)
@@ -66,6 +71,12 @@ def seed_files():
     folder2.files.append(file3)
     folder2.files.append(file4)
     folder2.files.append(file5)
+    folder3.files.append(file1)
+    folder3.files.append(file2)
+    folder3.files.append(file3)
+    folder3.files.append(file4)
+    folder3.files.append(file5)
+
 
 
 
