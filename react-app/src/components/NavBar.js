@@ -7,6 +7,7 @@ import "../index.css";
 const NavBar = ({ user, loaded }) => {
   return (
     <div className="flexRow height48 alignCenter">
+      <div className="fixed widthFull whiteBack">
       {loaded && (
         <nav className="flexRow height48 justSpace widthFull">
           <div className="flexRow alignCenter">
@@ -56,6 +57,7 @@ const NavBar = ({ user, loaded }) => {
           </ul>
         </nav>
       )}
+      </div>
     </div>
   );
 };

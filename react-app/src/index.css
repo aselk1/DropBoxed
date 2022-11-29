@@ -94,7 +94,7 @@ ul {
 }
 
 .pagePad {
-    padding-left: 20px;
+    padding-left: 250px;
 }
 
 .menu {
@@ -115,4 +115,16 @@ ul {
     font-size: 20px;
     font-family: 'Open Sans', sans-serif;
     padding-bottom: 10px;
+}
+
+.fixed {
+    position:fixed
+}
+
+.static {
+    position: absolute;
+}
+
+.whiteBack {
+    background-color: white;
 }

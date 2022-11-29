@@ -42,7 +42,7 @@ const Home = ({ user, loaded }) => {
 
   return (
     <div className="flexRow heightFull">
-        <div className="menu">{user.id && <MenuBar loaded={loaded} />}</div>
+        <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol">
         <h2>Home</h2>
         <div>
