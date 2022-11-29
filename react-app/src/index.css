@@ -9,6 +9,10 @@ body {
     height: 100%;
 }
 
+button {
+    cursor: pointer;
+}
+
 #root {
     height:100%
 }
@@ -122,6 +126,18 @@ ul {
     padding-bottom: 10px;
 }
 
+.menuButton2 {
+    background-color: rgba(255, 255, 255, 0);
+    height: 27px;
+    width: 27px;
+    border: none;
+}
+
+.menuButton2:hover {
+    background-color: lightgrey;
+}
+
+
 .fixed {
     position:fixed
 }
@@ -172,4 +188,12 @@ ul {
 .star {
     font-size: 10px;
     color: goldenrod;
+}
+
+.ellipsis {
+    font-size: 20px;
+}
+
+.fileHover:hover {
+    background-color: rgb(239, 237, 234);
 }

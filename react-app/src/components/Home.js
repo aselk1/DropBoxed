@@ -59,7 +59,7 @@ const Home = ({ user, loaded }) => {
         </div>
         {folders &&
           folders.map((folder) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
               <div className="flexRow alignCenter">
                 <img src={folderPic} className="folderPic"></img>
                 {folder.user_id === user.id && (
@@ -70,10 +70,10 @@ const Home = ({ user, loaded }) => {
               {folder.user_id === user.id && (
                 <div>
                   <button
-                    className="queueButton"
+                    className="menuButton2"
                     onClick={() => setFolderId(folder.id)}
                   >
-                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="fa-solid fa-ellipsis ellipsis"></i>
                   </button>
                   <div className="absolute">
                     <DropDownProvider>
@@ -92,7 +92,7 @@ const Home = ({ user, loaded }) => {
           ))}
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
               <div className="flexRow alignCenter">
                 <img src={filePic} className="filePic"></img>
                 {file.user_id === user.id && (
@@ -102,10 +102,10 @@ const Home = ({ user, loaded }) => {
               </div>
               <div>
                 <button
-                  className="queueButton"
+                  className="menuButton2"
                   onClick={() => setFileId(file.id)}
                 >
-                  <i class="fa-solid fa-ellipsis"></i>
+                  <i class="fa-solid fa-ellipsis ellipsis"></i>
                 </button>
                 <div className="absolute">
                   <DropDownProvider>

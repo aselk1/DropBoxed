@@ -13,9 +13,6 @@ function FileDropDownModal({setFileId, file, user}) {
 
   return (
     <div className="relative">
-      {/* <button onClick={() => run(true, folder.id)}>
-        <i class="fa-solid fa-ellipsis"></i>
-      </button> */}
       {showModal && (
         <DropDownModal onClose={run}>
           <FileDropDownForm

@@ -46,7 +46,7 @@ const Files = ({ user, loaded }) => {
         </div>
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
               <div className="flexRow alignCenter">
                 <img src={filePic} className="filePic"></img>
                 {file.user_id === user.id && (
@@ -56,10 +56,10 @@ const Files = ({ user, loaded }) => {
               </div>
               <div>
                 <button
-                  className="queueButton"
+                  className="menuButton2"
                   onClick={() => setFileId(file.id)}
                 >
-                  <i class="fa-solid fa-ellipsis"></i>
+                  <i class="fa-solid fa-ellipsis ellipsis"></i>
                 </button>
                 <div className="absolute">
                   <DropDownProvider>
