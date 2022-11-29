@@ -40,7 +40,7 @@ const Files = ({ user, loaded }) => {
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
-        <h2>Home</h2>
+        <h2>Files</h2>
         <div className="headerPadding">
           <FileFormModal />
         </div>

@@ -13,6 +13,10 @@ button {
     cursor: pointer;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 #root {
     height:100%
 }

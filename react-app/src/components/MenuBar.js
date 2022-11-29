@@ -6,7 +6,7 @@ import "../index.css";
 
 const MenuBar = ({ user, loaded }) => {
   return (
-    <div className>
+    <div>
       <div className="flexCol menuPadding">
         {loaded && (
           <nav className="flexCol">

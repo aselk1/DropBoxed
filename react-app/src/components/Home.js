@@ -10,7 +10,7 @@ import EditFolderFormModal from "./EditFolderFormModal";
 import MenuBar from "./MenuBar";
 import folderPic from "./images/folderPic.png";
 import filePic from "./images/filePic.png";
-// import FileMenu from "./FileMenu";
+import FileMenu from "./FileMenu";
 import FolderDropDownModal from "./FolderDropDownModal";
 import FileDropDownModal from "./FileDropDownModal";
 import { DropDownProvider } from "../context/DropDown";
@@ -21,6 +21,7 @@ const Home = ({ user, loaded }) => {
   const folders = useSelector((state) => state.folders.folders);
   const [showFileMenu, setShowFileMenu] = useState(false);
   const [folderId, setFolderId] = useState(-1);
+  const [folderFilesId, setFolderFilesId] = useState(-1);
   const [fileId, setFileId] = useState(-1);
 
   console.log(user);
@@ -48,6 +49,13 @@ const Home = ({ user, loaded }) => {
     console.log(data);
   };
 
+  const folderFiles = (id) => {
+    console.log(id, folderFilesId)
+    if (folderFilesId === id) {
+      setFolderFilesId(-1)
+    } else setFolderFilesId(id);
+  }
+
   return (
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
@@ -59,34 +67,43 @@ const Home = ({ user, loaded }) => {
         </div>
         {folders &&
           folders.map((folder) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
-              <div className="flexRow alignCenter">
-                <img src={folderPic} className="folderPic"></img>
-                {folder.user_id === user.id && (
-                  <i class="fa-solid fa-star star"></i>
-                )}
-                {folder.name.substring(0, 40)}
-              </div>
-              {folder.user_id === user.id && (
-                <div>
-                  <button
-                    className="menuButton2"
-                    onClick={() => setFolderId(folder.id)}
-                  >
-                    <i class="fa-solid fa-ellipsis ellipsis"></i>
-                  </button>
-                  <div className="absolute">
-                    <DropDownProvider>
-                      {folderId === folder.id && (
-                        <FolderDropDownModal
-                          setFolderId={setFolderId}
-                          folder={folder}
-                          user={user}
-                        />
-                      )}
-                    </DropDownProvider>
-                  </div>
+            <div>
+              <div
+                className="widthFull flexRow alignCenter justSpace filesPadding fileHover pointer"
+                onClick={() => folderFiles(folder.id)}
+                id={`folderBar${folder.id}`}
+              >
+                <div className="flexRow alignCenter">
+                  <img src={folderPic} className="folderPic"></img>
+                  {folder.user_id === user.id && (
+                    <i class="fa-solid fa-star star"></i>
+                  )}
+                  {folder.name.substring(0, 40)}
                 </div>
+                {folder.user_id === user.id && (
+                  <div>
+                    <button
+                      className="menuButton2"
+                      onClick={() => folderFiles(folder.id)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button>
+                    <div className="absolute">
+                      <DropDownProvider>
+                        {folderId === folder.id && (
+                          <FolderDropDownModal
+                            setFolderId={setFolderId}
+                            folder={folder}
+                            user={user}
+                          />
+                        )}
+                      </DropDownProvider>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {folder.id === folderFilesId && (
+                <FileMenu folder={folder} user={user} />
               )}
             </div>
           ))}
