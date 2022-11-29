@@ -45,6 +45,37 @@
 }
 
 #modal-content {
-    position: absolute;
+    position: fixed;
     background-color: white;
+}
+
+#dropDown {
+    position: absolute;
+    /* height: fit-content; */
+    /* width: fit-content; */
+    top: 30px;
+    right: 0px;
+    left: 115px;
+    bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 230px; */
+}
+
+#dropDown-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#dropDown-content {
+    position: absolute;
+    background-color: rgb(239, 237, 234);
+    width: 230px;
+    height: 60px;
 }

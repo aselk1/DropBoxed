@@ -7,12 +7,16 @@ import FileFormModal from "./FileFormModal";
 import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
 import EditFolderFormModal from "./EditFolderFormModal";
+import { DropDownProvider } from "../context/DropDown";
+import FolderDropDownModal from "./FolderDropDownModal";
 import MenuBar from "./MenuBar";
+import folderPic from "./images/folderPic.png";
 
 const Folders = ({ user, loaded }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
   const folders = useSelector((state) => state.folders.folders);
+  const [folderId, setFolderId] = useState(-1);
 
   useEffect(() => {
     (async () => {
@@ -38,39 +42,43 @@ const Folders = ({ user, loaded }) => {
   };
 
   return (
-    <div className="flexRow heightFull">
-        <div className="menu">{user.id && <MenuBar loaded={loaded} />}</div>
-      <div className="pagePad flexCol">
-        <h2>Folders</h2>
-        <div>
-          {/* <FileFormModal /> */}
+    <div className="flexRow heightFull widthFull">
+      <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
+      <div className="pagePad flexCol width75">
+        <h2>Home</h2>
+        <div className="headerPadding">
           <FolderFormModal />
         </div>
-        {/* {files &&
-          files.map((file) => (
-            <div>
-              {file.name}
-              {user.id === file.user_id && (
-                <button onClick={(e) => deleteFile(file.id)}>Delete</button>
-              )}
-              {user.id === file.user_id && (
-                <EditFileFormModal file={file} />
-              )}
-              <a href={file.file_url} download>
-                Download
-              </a>
-            </div>
-          ))} */}
         {folders &&
           folders.map((folder) => (
-            <div>
-              {folder.name}
-              {user.id === folder.user_id && (
-                <button onClick={(e) => deleteFolder(folder.id)}>Delete</button>
-              )}
-              {user.id === folder.user_id && (
-                //   <button onClick={(e) => editFile(file.id)}>Edit</button>
-                <EditFolderFormModal folder={folder} />
+            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
+              <div className="flexRow alignCenter">
+                <img src={folderPic} className="folderPic"></img>
+                {folder.user_id === user.id && (
+                  <i class="fa-solid fa-star star"></i>
+                )}
+                {folder.name.substring(0, 40)}
+              </div>
+              {folder.user_id === user.id && (
+                <div>
+                  <button
+                    className="menuButton2"
+                    onClick={() => setFolderId(folder.id)}
+                  >
+                    <i class="fa-solid fa-ellipsis ellipsis"></i>
+                  </button>
+                  <div className="absolute">
+                    <DropDownProvider>
+                      {folderId === folder.id && (
+                        <FolderDropDownModal
+                          setFolderId={setFolderId}
+                          folder={folder}
+                          user={user}
+                        />
+                      )}
+                    </DropDownProvider>
+                  </div>
+                </div>
               )}
             </div>
           ))}

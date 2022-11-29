@@ -4,16 +4,15 @@ import { Redirect, useHistory } from "react-router-dom";
 import * as fileActions from "../store/files";
 import * as folderActions from "../store/folders";
 import FileFormModal from "./FileFormModal";
-import EditFileFormModal from "./EditFileFormModal";
-import FolderFormModal from "./FolderFormModal";
-import EditFolderFormModal from "./EditFolderFormModal";
 import MenuBar from "./MenuBar";
+import filePic from "./images/filePic.png";
+import FileDropDownModal from "./FileDropDownModal";
+import { DropDownProvider } from "../context/DropDown";
 
 const Files = ({ user, loaded }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
-  // const folders = useSelector((state) => state.folders.folders);
-
+  const [fileId, setFileId] = useState(-1);
   useEffect(() => {
     (async () => {
       if (user.id) {
@@ -38,44 +37,44 @@ const Files = ({ user, loaded }) => {
   };
 
   return (
-    <div className="flexRow heightFull">
-        <div className="menu">{user.id && <MenuBar loaded={loaded} />}</div>
-      <div className="pagePad flexCol">
-        <h2>Files</h2>
-        <div>
+    <div className="flexRow heightFull widthFull">
+      <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
+      <div className="pagePad flexCol width75">
+        <h2>Home</h2>
+        <div className="headerPadding">
           <FileFormModal />
-          {/* <FolderFormModal /> */}
         </div>
         {files &&
           files.map((file) => (
-            <div>
-              {file.name}
-              {user.id === file.user_id && (
-                <button onClick={(e) => deleteFile(file.id)}>Delete</button>
-              )}
-              {user.id === file.user_id && (
-                //   <button onClick={(e) => editFile(file.id)}>Edit</button>
-                <EditFileFormModal file={file} />
-              )}
-              {/* <button onClick={(e) => downloadFile(file.id)}>Download</button> */}
-              <a href={file.file_url} download>
-                Download
-              </a>
+            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
+              <div className="flexRow alignCenter">
+                <img src={filePic} className="filePic"></img>
+                {file.user_id === user.id && (
+                  <i class="fa-solid fa-star star"></i>
+                )}
+                {file.name.substring(0, 40)}
+              </div>
+              <div>
+                <button
+                  className="menuButton2"
+                  onClick={() => setFileId(file.id)}
+                >
+                  <i class="fa-solid fa-ellipsis ellipsis"></i>
+                </button>
+                <div className="absolute">
+                  <DropDownProvider>
+                    {fileId === file.id && (
+                      <FileDropDownModal
+                        setFileId={setFileId}
+                        file={file}
+                        user={user}
+                      />
+                    )}
+                  </DropDownProvider>
+                </div>
+              </div>
             </div>
           ))}
-        {/* {folders &&
-          folders.map((folder) => (
-            <div>
-              {folder.name}
-              {user.id === folder.user_id && (
-                <button onClick={(e) => deleteFolder(folder.id)}>Delete</button>
-              )}
-              {user.id === folder.user_id && (
-                //   <button onClick={(e) => editFile(file.id)}>Edit</button>
-                <EditFolderFormModal folder={folder} />
-              )}
-            </div>
-          ))} */}
       </div>
     </div>
   );
