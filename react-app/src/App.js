@@ -8,13 +8,13 @@ import NavBar from "./components/NavBar";
 import MenuBar from "./components/MenuBar";
 import User from "./components/User";
 import UsersList from "./components/UsersList";
-import Home from './components/Home'
+import Home from "./components/Home";
 import Splash from "./components/SplashPage";
 import Files from "./components/Files";
 import Folders from "./components/Folders";
 import { authenticate } from "./store/session";
 import { ModalProvider } from "./context/Modal";
-
+import { DropDownProvider } from "./context/DropDown";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate())
+      await dispatch(authenticate());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -34,39 +34,39 @@ function App() {
 
   return (
     <ModalProvider>
-      <BrowserRouter>
-        <NavBar user={user} loaded={loaded} />
-        <Switch>
-          <Route path="/" exact={true}>
-            {user != null ? <Redirect to="/home" /> : <Splash />}
-          </Route>
-          <ProtectedRoute path="/home" exact={true}>
-            {user === null ? (
-              <Redirect to="/" />
-            ) : (
-              <Home user={user} loaded={loaded} />
-            )}
-          </ProtectedRoute>
-          <Route path="/login" exact={true}>
-            <LoginForm />
-          </Route>
-          <Route path="/sign-up" exact={true}>
-            <SignUpForm />
-          </Route>
-          <ProtectedRoute path="/users" exact={true}>
-            <UsersList />
-          </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId" exact={true}>
-            <User />
-          </ProtectedRoute>
-          <ProtectedRoute path="/files" exact={true}>
-            <Files user={user} loaded={loaded} />
-          </ProtectedRoute>
-          <ProtectedRoute path="/folders" exact={true}>
-            <Folders user={user} loaded={loaded} />
-          </ProtectedRoute>
-        </Switch>
-      </BrowserRouter>
+        <BrowserRouter>
+          <NavBar user={user} loaded={loaded} />
+          <Switch>
+            <Route path="/" exact={true}>
+              {user != null ? <Redirect to="/home" /> : <Splash />}
+            </Route>
+            <ProtectedRoute path="/home" exact={true}>
+              {user === null ? (
+                <Redirect to="/" />
+              ) : (
+                <Home user={user} loaded={loaded} />
+              )}
+            </ProtectedRoute>
+            <Route path="/login" exact={true}>
+              <LoginForm />
+            </Route>
+            <Route path="/sign-up" exact={true}>
+              <SignUpForm />
+            </Route>
+            <ProtectedRoute path="/users" exact={true}>
+              <UsersList />
+            </ProtectedRoute>
+            <ProtectedRoute path="/users/:userId" exact={true}>
+              <User />
+            </ProtectedRoute>
+            <ProtectedRoute path="/files" exact={true}>
+              <Files user={user} loaded={loaded} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/folders" exact={true}>
+              <Folders user={user} loaded={loaded} />
+            </ProtectedRoute>
+          </Switch>
+        </BrowserRouter>
     </ModalProvider>
   );
 }

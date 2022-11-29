@@ -8,6 +8,7 @@ import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
 import EditFolderFormModal from "./EditFolderFormModal";
 import MenuBar from "./MenuBar";
+import filePic from "./images/filePic.png";
 
 const Files = ({ user, loaded }) => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const Files = ({ user, loaded }) => {
         {files &&
           files.map((file) => (
             <div>
+              <img src={filePic} className="filePic"></img>
               {file.name}
               {user.id === file.user_id && (
                 <button onClick={(e) => deleteFile(file.id)}>Delete</button>
