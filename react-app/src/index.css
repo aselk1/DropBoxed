@@ -201,3 +201,10 @@ ul {
 .fileHover:hover {
     background-color: rgb(239, 237, 234);
 }
+
+.folderBarPadding {
+    padding-left: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: solid black 1px;
+}

@@ -10,7 +10,7 @@ function FileMenu({ user, folder }) {
   const [fileId, setFileId] = useState(-1);
 
   return (
-    <div>
+    <div className="folderBarPadding">
       {folder.files[0] &&
         folder.files.map((file) => (
           <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
