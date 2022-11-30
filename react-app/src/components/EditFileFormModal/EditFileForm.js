@@ -56,7 +56,6 @@ const EditFileForm = ({ file, setShowModal }) => {
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
-        {console.log(errors)}
       </div>
       <h2>Edit File</h2>
       <div className="flexCol">

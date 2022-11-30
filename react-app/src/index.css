@@ -44,6 +44,10 @@ a {
     justify-content: center;
 }
 
+.justEnd {
+    justify-content: flex-end;
+}
+
 .justEven {
     justify-content: space-evenly;
 }
@@ -281,6 +285,17 @@ ul {
     height: 30px;
 }
 
+.createButton2 {
+    background-color: rgb(239, 237, 234);
+    border: none;
+    width: 70px;
+    height: 30px;
+}
+
+.createButton2:hover {
+    background-color: rgb(216, 216, 216);
+}
+
 .createButton:hover {
     background-color: rgb(216, 216, 216);
 }
@@ -302,6 +317,10 @@ ul {
 
 .leftPad {
     padding-left: 15px;
+}
+
+.rightPad {
+    padding-right: 15px;
 }
 
 .fullPad {
