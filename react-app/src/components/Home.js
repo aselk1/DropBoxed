@@ -34,7 +34,7 @@ const Home = ({ user, loaded }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }, []);
 
   const deleteFile = async (id) => {
@@ -63,7 +63,7 @@ const Home = ({ user, loaded }) => {
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
-        <h2>Home</h2>
+        <h2 className="fontHead">Home</h2>
         <div className="headerPadding">
           <FileFormModal />
           <FolderFormModal />
@@ -99,12 +99,6 @@ const Home = ({ user, loaded }) => {
                 </div>
                 {folder.user_id === user.id && (
                   <div>
-                    {/* <button
-                      className="menuButton2"
-                      onClick={(e) => folderModal(folder.id, e)}
-                    >
-                      <i class="fa-solid fa-ellipsis ellipsis"></i>
-                    </button> */}
                     <div className="absolute">
                       <DropDownProvider>
                         {folderId === folder.id && (
@@ -126,31 +120,39 @@ const Home = ({ user, loaded }) => {
           ))}
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
-              <div className="flexRow alignCenter">
-                <img src={filePic} className="filePic"></img>
-                {file.user_id === user.id && (
-                  <i class="fa-solid fa-star star"></i>
-                )}
-                {file.name.substring(0, 40)}
-              </div>
-              <div>
-                <button
-                  className="menuButton2"
-                  onClick={() => setFileId(file.id)}
-                >
-                  <i class="fa-solid fa-ellipsis ellipsis"></i>
-                </button>
-                <div className="absolute">
-                  <DropDownProvider>
-                    {fileId === file.id && (
-                      <FileDropDownModal
-                        setFileId={setFileId}
-                        file={file}
-                        user={user}
-                      />
+            <div>
+              <div className="widthFull"></div>
+              <div className="widthFull flexRow alignCenter">
+                <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
+                  <div className="flexRow alignCenter">
+                    <img src={filePic} className="filePic"></img>
+                    {file.user_id === user.id && (
+                      <i class="fa-solid fa-star star"></i>
                     )}
-                  </DropDownProvider>
+                    {file.name.substring(0, 40)}
+                  </div>
+                  <div className="testtest"></div>
+                  <div>
+                    <button
+                      className="menuButton2"
+                      onClick={() => setFileId(file.id)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button>
+                  </div>
+                  <div>
+                    <div className="absolute">
+                      <DropDownProvider>
+                        {fileId === file.id && (
+                          <FileDropDownModal
+                            setFileId={setFileId}
+                            file={file}
+                            user={user}
+                          />
+                        )}
+                      </DropDownProvider>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

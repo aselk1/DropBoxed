@@ -60,7 +60,7 @@ const Folders = ({ user, loaded }) => {
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
-        <h2>Folders</h2>
+        <h2 className="fontHead">Folders</h2>
         <div className="headerPadding">
           <FolderFormModal />
         </div>

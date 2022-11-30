@@ -40,6 +40,10 @@ a {
     justify-content: center;
 }
 
+.justEven {
+    justify-content: space-evenly;
+}
+
 .justSpace {
     justify-content: space-between;
 }
@@ -74,7 +78,7 @@ ul {
 }
 
 .width75 {
-    width: 50%;
+    width: 68%;
     max-width: 750px;
 }
 
@@ -224,4 +228,48 @@ ul {
 
 .plainBorderTop {
     border-top: solid black 1px;
+}
+
+
+.uploadIcon {
+    color: white;
+}
+
+.uploadButton {
+    background-color: #0061FE;
+    border: none;
+    width: 110px;
+    height: 30px;
+    margin-right: 20px;
+}
+
+.uploadButton:hover {
+    background-color: #0052d6;
+}
+
+.font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.fontHead {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 23px;
+    font-weight: 200;
+}
+
+.createIcon {
+    color: black;
+    font-weight: 3000;
+}
+
+.createButton {
+    background-color: rgb(239, 237, 234);
+    border: none;
+    width: 110px;
+    height: 30px;
+}
+
+.createButton:hover {
+    background-color: rgb(216, 216, 216);
 }
