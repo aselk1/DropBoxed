@@ -13,22 +13,20 @@ const FileForm = ({ setShowModal }) => {
   const [file, setFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
 
-  const addFile = (e) => {
+  const addFile = async (e) => {
     e.preventDefault();
     setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, desc, priv, file };
-    return (
-      dispatch(fileActions.fetchPostFile(data, setShowModal))
-        //catch res and or errors
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(Object.values(data.errors));
-          }
-        })
+    const dispatchData = await dispatch(
+      fileActions.fetchPostFile(data, setShowModal)
     );
+    if (dispatchData) {
+      setErrors(dispatchData);
+      setImageLoading(false)
+    }
+    //catch res and or errors
   };
 
   const updateFile = (e) => {
@@ -55,6 +53,12 @@ const FileForm = ({ setShowModal }) => {
 
   return (
     <form onSubmit={addFile}>
+      <div>
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+        {console.log(errors)}
+      </div>
       <div className="flexRow alignCenter leftPad plainBorder">
         <img src={filePic} className="filePic"></img>
         <h2 className="fontHead">Upload File</h2>
@@ -82,17 +86,16 @@ const FileForm = ({ setShowModal }) => {
           onChange={(e) => setDesc(e.target.value)}
         />
         <div className="flexRow alignCenter">
-
-        <label className="font" htmlFor="private">
-          Private
-        </label>
-        <input
-          name="private"
-          type="checkbox"
-          // placeholder="File Name"
-          checked={priv}
-          onChange={setPrivate}
-        />
+          <label className="font" htmlFor="private">
+            Private
+          </label>
+          <input
+            name="private"
+            type="checkbox"
+            // placeholder="File Name"
+            checked={priv}
+            onChange={setPrivate}
+          />
         </div>
         <input
           // placeholder="Drag Song Here"

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d760747c501f
+Revision ID: 781f1fcf40a2
 Revises: 
-Create Date: 2022-11-22 16:31:47.637205
+Create Date: 2022-11-30 13:37:54.204201
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd760747c501f'
+revision = '781f1fcf40a2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,18 +29,17 @@ def upgrade():
     )
     op.create_table('files',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('desc', sa.String(), nullable=True),
+    sa.Column('name', sa.String(length=60), nullable=False),
+    sa.Column('desc', sa.String(length=160), nullable=True),
     sa.Column('file_url', sa.String(), nullable=False),
     sa.Column('private', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('file_url')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('folders',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('name', sa.String(length=60), nullable=False),
     sa.Column('private', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
