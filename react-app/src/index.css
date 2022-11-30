@@ -44,6 +44,10 @@ a {
     justify-content: space-evenly;
 }
 
+.justAround {
+    justify-content: space-around;
+}
+
 .justSpace {
     justify-content: space-between;
 }
@@ -272,4 +276,23 @@ ul {
 
 .createButton:hover {
     background-color: rgb(216, 216, 216);
+}
+
+
+.dropDownIcon {
+    color: black;
+    font-weight: 3000;
+}
+
+.dropDownButton {
+    background-color: rgb(239, 237, 234);
+    border: none;
+}
+
+.dropDownButton:hover {
+    background-color: rgb(216, 216, 216);
+}
+
+.leftPad {
+    padding-left: 15px;
 }

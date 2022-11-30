@@ -15,7 +15,12 @@ const FolderDropDownForm = ({setShowModal, user, folder}) => {
   return (
     <div className="flexCol">
       {user.id === folder.user_id && (
-        <button onClick={(e) => deleteFolder(folder.id)}>Delete</button>
+        <button className="dropDownButton" onClick={(e) => deleteFolder(folder.id)}>
+          <div className="flexRow alignCenter">
+            <i class="fa-solid fa-trash dropDownIcon leftPad"></i>
+            <div className="dropDownIcon font leftPad">Delete</div>
+          </div>
+        </button>
       )}
       {user.id === folder.user_id && (
         //   <button onClick={(e) => editFile(file.id)}>Edit</button>

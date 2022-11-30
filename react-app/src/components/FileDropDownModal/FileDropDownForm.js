@@ -13,16 +13,27 @@ const FileDropDownForm = ({setShowModal, user, file}) => {
   return (
     <div className="flexCol">
       {user.id === file.user_id && (
-        <button onClick={(e) => deleteFile(file.id)}>Delete</button>
+        <button className="dropDownButton" onClick={(e) => deleteFile(file.id)}>
+          <div className="flexRow alignCenter">
+            <i class="fa-solid fa-trash dropDownIcon leftPad"></i>
+            <div className="dropDownIcon font leftPad">Delete</div>
+          </div>
+        </button>
       )}
       {user.id === file.user_id && (
         //   <button onClick={(e) => editFile(file.id)}>Edit</button>
         <EditFileFormModal file={file} />
       )}
-      {/* <button onClick={(e) => downloadFile(file.id)}>Download</button> */}
-      <a href={file.file_url} download>
-        Download
-      </a>
+      <button className="dropDownButton">
+        <div className="flexRow alignCenter">
+          <i class="fa-solid fa-upload dropDownIcon leftPad"></i>
+          <div className="dropDownIcon font leftPad">
+            <a href={file.file_url} download>
+              Download
+            </a>
+          </div>
+        </div>
+      </button>
     </div>
   );
 };
