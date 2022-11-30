@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as fileActions from '../../store/files'
+import * as fileActions from "../../store/files";
+import filePic from '../images/filePic.png'
 
-const FileForm = ({setShowModal}) => {
-  const dispatch = useDispatch()
+const FileForm = ({ setShowModal }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const [priv, setPriv] = useState(0)
+  const [priv, setPriv] = useState(0);
   const [file, setFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
 
   const addFile = (e) => {
     e.preventDefault();
-    setImageLoading(true)
+    setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, desc, priv, file };
     return (
-      dispatch(
-        fileActions.fetchPostFile(data, setShowModal))
+      dispatch(fileActions.fetchPostFile(data, setShowModal))
         //catch res and or errors
         .catch(async (res) => {
           const data = await res.json();
@@ -49,15 +49,20 @@ const FileForm = ({setShowModal}) => {
   };
 
   const setPrivate = () => {
-    if (priv === 0) setPriv(1)
-    else setPriv(0)
-  }
+    if (priv === 0) setPriv(1);
+    else setPriv(0);
+  };
 
   return (
     <form onSubmit={addFile}>
-      <h2>Upload File</h2>
-      <div>
-        <label htmlFor="name">Name</label>
+      <div className="flexRow alignCenter leftPad plainBorder">
+        <img src={filePic} className="filePic"></img>
+        <h2 className="fontHead">Upload File</h2>
+      </div>
+      <div className="flexCol fullPad">
+        <label className="font" htmlFor="name">
+          Name
+        </label>
         <input
           name="name"
           type="text"
@@ -66,7 +71,9 @@ const FileForm = ({setShowModal}) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <label htmlFor="desc">Description</label>
+        <label className="font" htmlFor="desc">
+          Description
+        </label>
         <textarea
           name="desc"
           type="textarea"
@@ -74,6 +81,11 @@ const FileForm = ({setShowModal}) => {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
+        <div className="flexRow alignCenter">
+
+        <label className="font" htmlFor="private">
+          Private
+        </label>
         <input
           name="private"
           type="checkbox"
@@ -81,6 +93,7 @@ const FileForm = ({setShowModal}) => {
           checked={priv}
           onChange={setPrivate}
         />
+        </div>
         <input
           // placeholder="Drag Song Here"
           type="file"

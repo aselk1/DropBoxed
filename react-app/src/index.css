@@ -13,6 +13,10 @@ button {
     cursor: pointer;
 }
 
+textarea {
+    resize: none;
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -171,11 +175,13 @@ ul {
 .folderPic {
     height: 30px;
     width: 40px;
+    padding-right: 10px;
 }
 
 .filePic {
     height: 40px;
     width: 40px;
+    padding-right: 10px;
 }
 
 
@@ -254,6 +260,7 @@ ul {
 .font {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
+    font-weight: 900;
 }
 
 .fontHead {
@@ -295,4 +302,8 @@ ul {
 
 .leftPad {
     padding-left: 15px;
+}
+
+.fullPad {
+    padding: 20px;
 }
