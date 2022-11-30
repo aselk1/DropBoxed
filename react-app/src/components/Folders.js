@@ -29,6 +29,10 @@ const Folders = ({ user, loaded }) => {
     })();
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const deleteFile = async (id) => {
     const data = await dispatch(fileActions.fetchDeleteFile(id));
   };
@@ -56,7 +60,7 @@ const Folders = ({ user, loaded }) => {
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
-        <h2>Folders</h2>
+        <h2 className="fontHead">Folders</h2>
         <div className="headerPadding">
           <FolderFormModal />
         </div>
@@ -91,12 +95,6 @@ const Folders = ({ user, loaded }) => {
                 </div>
                 {folder.user_id === user.id && (
                   <div>
-                    {/* <button
-                      className="menuButton2"
-                      onClick={(e) => folderModal(folder.id, e)}
-                    >
-                      <i class="fa-solid fa-ellipsis ellipsis"></i>
-                    </button> */}
                     <div className="absolute">
                       <DropDownProvider>
                         {folderId === folder.id && (
