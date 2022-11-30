@@ -46,7 +46,7 @@ const Files = ({ user, loaded }) => {
         </div>
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
               <div className="flexRow alignCenter">
                 <img src={filePic} className="filePic"></img>
                 {file.user_id === user.id && (

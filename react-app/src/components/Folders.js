@@ -62,7 +62,7 @@ const Folders = ({ user, loaded }) => {
           folders.map((folder) => (
             <div>
               <div
-                className="widthFull flexRow alignCenter justSpace filesPadding fileHover pointer"
+                className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover pointer"
                 onClick={() => folderFiles(folder.id)}
                 id={`folderBar${folder.id}`}
               >

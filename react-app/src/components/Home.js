@@ -50,15 +50,15 @@ const Home = ({ user, loaded }) => {
   };
 
   const folderFiles = (id) => {
-    console.log(id, folderFilesId)
+    console.log(id, folderFilesId);
     if (folderFilesId === id) {
-      setFolderFilesId(-1)
+      setFolderFilesId(-1);
     } else setFolderFilesId(id);
-  }
+  };
   const folderModal = (id, e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     setFolderId(id);
-  }
+  };
 
   return (
     <div className="flexRow heightFull widthFull">
@@ -74,16 +74,21 @@ const Home = ({ user, loaded }) => {
             <div>
               <div className="widthFull"></div>
               <div
-                className="widthFull flexRow alignCenter justSpace filesPadding fileHover pointer"
-                onClick={() => folderFiles(folder.id)}
+                className="widthFull flexRow alignCenter plainBorder"
                 id={`folderBar${folder.id}`}
               >
-                <div className="flexRow alignCenter">
-                  <img src={folderPic} className="folderPic"></img>
-                  {folder.user_id === user.id && (
-                    <i class="fa-solid fa-star star"></i>
-                  )}
-                  {folder.name.substring(0, 40)}
+                <div
+                  className="flexRow widthFull alignCenter filesPadding fileHover pointer"
+                  onClick={() => folderFiles(folder.id)}
+                >
+                  <div className="flexRow alignCenter">
+                    <img src={folderPic} className="folderPic"></img>
+                    {folder.user_id === user.id && (
+                      <i class="fa-solid fa-star star"></i>
+                    )}
+                    {folder.name.substring(0, 40)}
+                  </div>
+                  <div className="testtest"></div>
                 </div>
                 {folder.user_id === user.id && (
                   <div>
@@ -114,7 +119,7 @@ const Home = ({ user, loaded }) => {
           ))}
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
               <div className="flexRow alignCenter">
                 <img src={filePic} className="filePic"></img>
                 {file.user_id === user.id && (

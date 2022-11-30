@@ -74,7 +74,8 @@ ul {
 }
 
 .width75 {
-    min-width: 30%;
+    width: 65%;
+    max-width: 750px;
 }
 
 .heightFull {
@@ -180,7 +181,6 @@ ul {
 .filesPadding {
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom: solid black 1px;
 }
 
 .headerPadding {
@@ -211,4 +211,13 @@ ul {
 
 .zIndex {
     z-index: 100;
+}
+
+.testtest {
+    flex-grow: 1;
+    height: 30px;
+}
+
+.plainBorder {
+    border-bottom: solid black 1px;
 }
