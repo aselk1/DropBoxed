@@ -1,3 +1,5 @@
+import * as folderActions from '../store/folders'
+
 const POST_FILE = "files/POST_FILE";
 const EDIT_FILE = "stories/EDIT_FILE";
 const GET_FILES = "files/GET_FILES";
@@ -80,6 +82,7 @@ export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   if (response.ok) {
     const file = await response.json();
     dispatch(editFile(file));
+    dispatch(folderActions.fetchAllFolders())
     setShowModal(false);
     return response;
   }
