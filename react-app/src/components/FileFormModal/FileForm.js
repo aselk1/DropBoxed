@@ -14,7 +14,6 @@ const FileForm = ({setShowModal}) => {
 
   const addFile = (e) => {
     e.preventDefault();
-    console.log(priv)
     setImageLoading(true)
     //reset errors array
     setErrors([]);

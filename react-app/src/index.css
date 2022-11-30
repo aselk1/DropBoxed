@@ -74,7 +74,7 @@ ul {
 }
 
 .width75 {
-    width: 65%;
+    width: 50%;
     max-width: 750px;
 }
 
@@ -220,4 +220,8 @@ ul {
 
 .plainBorder {
     border-bottom: solid black 1px;
+}
+
+.plainBorderTop {
+    border-top: solid black 1px;
 }

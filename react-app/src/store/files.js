@@ -68,13 +68,11 @@ export const fetchPostFile = (data, setShowModal) => async (dispatch) => {
 
 export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   const { name, desc, priv, newFile } = data;
-  console.log(data);
   const formData = new FormData();
   formData.append("name", name);
   formData.append("desc", desc);
   formData.append("private", priv);
   formData.append("file", newFile);
-  console.log(formData.values());
   const response = await fetch(`/api/files/${id}`, {
     method: "PUT",
     body: formData,

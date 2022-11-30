@@ -23,7 +23,6 @@ const Folders = ({ user, loaded }) => {
   useEffect(() => {
     (async () => {
       if (user.id) {
-        console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
         await dispatch(folderActions.fetchAllFolders());
       }
@@ -40,14 +39,17 @@ const Folders = ({ user, loaded }) => {
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
-    console.log(data);
   };
 
   const folderFiles = (id) => {
-    console.log(id, folderFilesId);
     if (folderFilesId === id) {
       setFolderFilesId(-1);
     } else setFolderFilesId(id);
+  };
+
+  const folderModal = (id, e) => {
+    e.stopPropagation();
+    setFolderId(id);
   };
 
   return (
@@ -61,26 +63,40 @@ const Folders = ({ user, loaded }) => {
         {folders &&
           folders.map((folder) => (
             <div>
+              <div className="widthFull"></div>
               <div
-                className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover pointer"
-                onClick={() => folderFiles(folder.id)}
+                className="widthFull flexRow alignCenter"
                 id={`folderBar${folder.id}`}
               >
-                <div className="flexRow alignCenter">
-                  <img src={folderPic} className="folderPic"></img>
+                <div
+                  className="flexRow widthFull alignCenter fileHover pointer plainBorder filesPadding"
+                  onClick={() => folderFiles(folder.id)}
+                >
+                  <div className="flexRow alignCenter">
+                    <img src={folderPic} className="folderPic"></img>
+                    {folder.user_id === user.id && (
+                      <i class="fa-solid fa-star star"></i>
+                    )}
+                    {folder.name.substring(0, 40)}
+                  </div>
+                  <div className="testtest"></div>
                   {folder.user_id === user.id && (
-                    <i class="fa-solid fa-star star"></i>
-                  )}
-                  {folder.name.substring(0, 40)}
-                </div>
-                {folder.user_id === user.id && (
-                  <div>
                     <button
                       className="menuButton2"
-                      onClick={() => setFolderId(folder.id)}
+                      onClick={(e) => folderModal(folder.id, e)}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>
+                  )}
+                </div>
+                {folder.user_id === user.id && (
+                  <div>
+                    {/* <button
+                      className="menuButton2"
+                      onClick={(e) => folderModal(folder.id, e)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button> */}
                     <div className="absolute">
                       <DropDownProvider>
                         {folderId === folder.id && (

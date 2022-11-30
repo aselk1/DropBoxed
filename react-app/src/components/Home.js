@@ -24,12 +24,9 @@ const Home = ({ user, loaded }) => {
   const [folderFilesId, setFolderFilesId] = useState(-1);
   const [fileId, setFileId] = useState(-1);
 
-  console.log(user);
   useEffect(() => {
     (async () => {
-      console.log(user);
       if (user.id) {
-        console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
         await dispatch(folderActions.fetchAllFolders());
       }
@@ -46,11 +43,9 @@ const Home = ({ user, loaded }) => {
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
-    console.log(data);
   };
 
   const folderFiles = (id) => {
-    console.log(id, folderFilesId);
     if (folderFilesId === id) {
       setFolderFilesId(-1);
     } else setFolderFilesId(id);
@@ -74,11 +69,11 @@ const Home = ({ user, loaded }) => {
             <div>
               <div className="widthFull"></div>
               <div
-                className="widthFull flexRow alignCenter plainBorder"
+                className="widthFull flexRow alignCenter"
                 id={`folderBar${folder.id}`}
               >
                 <div
-                  className="flexRow widthFull alignCenter filesPadding fileHover pointer"
+                  className="flexRow widthFull alignCenter fileHover pointer plainBorder filesPadding"
                   onClick={() => folderFiles(folder.id)}
                 >
                   <div className="flexRow alignCenter">
@@ -89,15 +84,23 @@ const Home = ({ user, loaded }) => {
                     {folder.name.substring(0, 40)}
                   </div>
                   <div className="testtest"></div>
-                </div>
-                {folder.user_id === user.id && (
-                  <div>
+                  {folder.user_id === user.id && (
                     <button
                       className="menuButton2"
                       onClick={(e) => folderModal(folder.id, e)}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>
+                  )}
+                </div>
+                {folder.user_id === user.id && (
+                  <div>
+                    {/* <button
+                      className="menuButton2"
+                      onClick={(e) => folderModal(folder.id, e)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button> */}
                     <div className="absolute">
                       <DropDownProvider>
                         {folderId === folder.id && (

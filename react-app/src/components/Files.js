@@ -16,7 +16,6 @@ const Files = ({ user, loaded }) => {
   useEffect(() => {
     (async () => {
       if (user.id) {
-        console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
         // await dispatch(folderActions.fetchAllFolders());
       }
@@ -33,7 +32,6 @@ const Files = ({ user, loaded }) => {
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
-    console.log(data);
   };
 
   return (
