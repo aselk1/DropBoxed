@@ -10,7 +10,7 @@ import EditFolderFormModal from "./EditFolderFormModal";
 import MenuBar from "./MenuBar";
 import folderPic from "./images/folderPic.png";
 import filePic from "./images/filePic.png";
-// import FileMenu from "./FileMenu";
+import FileMenu from "./FileMenu";
 import FolderDropDownModal from "./FolderDropDownModal";
 import FileDropDownModal from "./FileDropDownModal";
 import { DropDownProvider } from "../context/DropDown";
@@ -21,14 +21,12 @@ const Home = ({ user, loaded }) => {
   const folders = useSelector((state) => state.folders.folders);
   const [showFileMenu, setShowFileMenu] = useState(false);
   const [folderId, setFolderId] = useState(-1);
+  const [folderFilesId, setFolderFilesId] = useState(-1);
   const [fileId, setFileId] = useState(-1);
 
-  console.log(user);
   useEffect(() => {
     (async () => {
-      console.log(user);
       if (user.id) {
-        console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
         await dispatch(folderActions.fetchAllFolders());
       }
@@ -45,7 +43,16 @@ const Home = ({ user, loaded }) => {
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
-    console.log(data);
+  };
+
+  const folderFiles = (id) => {
+    if (folderFilesId === id) {
+      setFolderFilesId(-1);
+    } else setFolderFilesId(id);
+  };
+  const folderModal = (id, e) => {
+    e.stopPropagation();
+    setFolderId(id);
   };
 
   return (
@@ -59,40 +66,63 @@ const Home = ({ user, loaded }) => {
         </div>
         {folders &&
           folders.map((folder) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
-              <div className="flexRow alignCenter">
-                <img src={folderPic} className="folderPic"></img>
-                {folder.user_id === user.id && (
-                  <i class="fa-solid fa-star star"></i>
-                )}
-                {folder.name.substring(0, 40)}
-              </div>
-              {folder.user_id === user.id && (
-                <div>
-                  <button
-                    className="menuButton2"
-                    onClick={() => setFolderId(folder.id)}
-                  >
-                    <i class="fa-solid fa-ellipsis ellipsis"></i>
-                  </button>
-                  <div className="absolute">
-                    <DropDownProvider>
-                      {folderId === folder.id && (
-                        <FolderDropDownModal
-                          setFolderId={setFolderId}
-                          folder={folder}
-                          user={user}
-                        />
-                      )}
-                    </DropDownProvider>
+            <div>
+              <div className="widthFull"></div>
+              <div
+                className="widthFull flexRow alignCenter"
+                id={`folderBar${folder.id}`}
+              >
+                <div
+                  className="flexRow widthFull alignCenter fileHover pointer plainBorder filesPadding"
+                  onClick={() => folderFiles(folder.id)}
+                >
+                  <div className="flexRow alignCenter">
+                    <img src={folderPic} className="folderPic"></img>
+                    {folder.user_id === user.id && (
+                      <i class="fa-solid fa-star star"></i>
+                    )}
+                    {folder.name.substring(0, 40)}
                   </div>
+                  <div className="testtest"></div>
+                  {folder.user_id === user.id && (
+                    <button
+                      className="menuButton2"
+                      onClick={(e) => folderModal(folder.id, e)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button>
+                  )}
                 </div>
+                {folder.user_id === user.id && (
+                  <div>
+                    {/* <button
+                      className="menuButton2"
+                      onClick={(e) => folderModal(folder.id, e)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button> */}
+                    <div className="absolute">
+                      <DropDownProvider>
+                        {folderId === folder.id && (
+                          <FolderDropDownModal
+                            setFolderId={setFolderId}
+                            folder={folder}
+                            user={user}
+                          />
+                        )}
+                      </DropDownProvider>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {folder.id === folderFilesId && (
+                <FileMenu folder={folder} user={user} />
               )}
             </div>
           ))}
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
               <div className="flexRow alignCenter">
                 <img src={filePic} className="filePic"></img>
                 {file.user_id === user.id && (

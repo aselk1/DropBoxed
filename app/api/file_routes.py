@@ -50,8 +50,6 @@ def post_file():
     file.filename = get_unique_filename(file.filename)
     form = FileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.data)
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         upload = upload_file_to_s3(file)
         if "url" not in upload:
@@ -85,9 +83,6 @@ def get_file(id):
 @file_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def edit_file(id):
-    # print(request.files['file'])
-    # if "file" not in request.files:
-    #     return {"errors": "file required"}, 400
     new_file = None
     if "file" in request.files:
         new_file = request.files["file"]

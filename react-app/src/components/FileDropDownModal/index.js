@@ -6,7 +6,8 @@ import FileDropDownForm from "./FileDropDownForm";
 function FileDropDownModal({setFileId, file, user}) {
   const [showModal, setShowModal] = useState(true);
 
-  const run = () => {
+  const run = (e) => {
+    e.stopPropagation()
     setShowModal(false);
     setFileId(-1)
   }
@@ -14,7 +15,7 @@ function FileDropDownModal({setFileId, file, user}) {
   return (
     <div className="relative">
       {showModal && (
-        <DropDownModal onClose={run}>
+        <DropDownModal onClose={(e) => run(e)}>
           <FileDropDownForm
             setShowModal={setShowModal}
             user={user}

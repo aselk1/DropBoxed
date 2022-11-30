@@ -16,7 +16,6 @@ const Files = ({ user, loaded }) => {
   useEffect(() => {
     (async () => {
       if (user.id) {
-        console.log("Home useEffect");
         await dispatch(fileActions.fetchAllFiles());
         // await dispatch(folderActions.fetchAllFolders());
       }
@@ -33,20 +32,19 @@ const Files = ({ user, loaded }) => {
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
-    console.log(data);
   };
 
   return (
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
-        <h2>Home</h2>
+        <h2>Files</h2>
         <div className="headerPadding">
           <FileFormModal />
         </div>
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding fileHover">
+            <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
               <div className="flexRow alignCenter">
                 <img src={filePic} className="filePic"></img>
                 {file.user_id === user.id && (

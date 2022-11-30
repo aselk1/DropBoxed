@@ -13,6 +13,10 @@ button {
     cursor: pointer;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 #root {
     height:100%
 }
@@ -70,7 +74,8 @@ ul {
 }
 
 .width75 {
-    min-width: 30%;
+    width: 50%;
+    max-width: 750px;
 }
 
 .heightFull {
@@ -176,7 +181,6 @@ ul {
 .filesPadding {
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom: solid black 1px;
 }
 
 .headerPadding {
@@ -196,4 +200,28 @@ ul {
 
 .fileHover:hover {
     background-color: rgb(239, 237, 234);
+}
+
+.folderBarPadding {
+    padding-left: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: solid black 1px;
+}
+
+.zIndex {
+    z-index: 100;
+}
+
+.testtest {
+    flex-grow: 1;
+    height: 30px;
+}
+
+.plainBorder {
+    border-bottom: solid black 1px;
+}
+
+.plainBorderTop {
+    border-top: solid black 1px;
 }

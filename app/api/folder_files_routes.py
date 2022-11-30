@@ -26,7 +26,6 @@ folder_files_routes = Blueprint('folder_files', __name__)
 def post_folder_file(folder_id, file_id):
     folder = Folder.query.get(folder_id)
     file = File.query.get(file_id)
-    print(file)
     if current_user.id == folder.user_id:
         folder.files.append(file)
         db.session.add(folder)
@@ -39,7 +38,6 @@ def post_folder_file(folder_id, file_id):
 def delete_folder_file(folder_id, file_id):
     folder = Folder.query.get(folder_id)
     file = File.query.get(file_id)
-    print(file)
     if current_user.id == folder.user_id:
         folder.files.remove(file)
         db.session.add(folder)

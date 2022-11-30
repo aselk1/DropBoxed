@@ -1,3 +1,5 @@
+import * as folderActions from '../store/folders'
+
 const POST_FILE = "files/POST_FILE";
 const EDIT_FILE = "stories/EDIT_FILE";
 const GET_FILES = "files/GET_FILES";
@@ -66,13 +68,11 @@ export const fetchPostFile = (data, setShowModal) => async (dispatch) => {
 
 export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   const { name, desc, priv, newFile } = data;
-  console.log(data);
   const formData = new FormData();
   formData.append("name", name);
   formData.append("desc", desc);
   formData.append("private", priv);
   formData.append("file", newFile);
-  console.log(formData.values());
   const response = await fetch(`/api/files/${id}`, {
     method: "PUT",
     body: formData,
@@ -80,6 +80,7 @@ export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   if (response.ok) {
     const file = await response.json();
     dispatch(editFile(file));
+    dispatch(folderActions.fetchAllFolders())
     setShowModal(false);
     return response;
   }
