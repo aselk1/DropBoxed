@@ -33,6 +33,10 @@ const Home = ({ user, loaded }) => {
     })();
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, []);
+
   const deleteFile = async (id) => {
     const data = await dispatch(fileActions.fetchDeleteFile(id));
   };
