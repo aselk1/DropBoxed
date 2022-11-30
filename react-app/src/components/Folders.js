@@ -77,7 +77,7 @@ const Folders = ({ user, loaded }) => {
                   <div>
                     <button
                       className="menuButton2"
-                      onClick={() => folderFiles(folder.id)}
+                      onClick={() => setFolderId(folder.id)}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>

@@ -55,6 +55,10 @@ const Home = ({ user, loaded }) => {
       setFolderFilesId(-1)
     } else setFolderFilesId(id);
   }
+  const folderModal = (id, e) => {
+    e.stopPropagation()
+    setFolderId(id);
+  }
 
   return (
     <div className="flexRow heightFull widthFull">
@@ -68,6 +72,7 @@ const Home = ({ user, loaded }) => {
         {folders &&
           folders.map((folder) => (
             <div>
+              <div className="widthFull"></div>
               <div
                 className="widthFull flexRow alignCenter justSpace filesPadding fileHover pointer"
                 onClick={() => folderFiles(folder.id)}
@@ -84,7 +89,7 @@ const Home = ({ user, loaded }) => {
                   <div>
                     <button
                       className="menuButton2"
-                      onClick={() => folderFiles(folder.id)}
+                      onClick={(e) => folderModal(folder.id, e)}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>

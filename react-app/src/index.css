@@ -208,3 +208,7 @@ ul {
     padding-top: 10px;
     border-bottom: solid black 1px;
 }
+
+.zIndex {
+    z-index: 100;
+}

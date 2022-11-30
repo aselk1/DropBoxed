@@ -26,7 +26,7 @@ export function DropDownModal({ onClose, children }) {
 
   return ReactDOM.createPortal(
     <div id="dropDown">
-      <div id="dropDown-background" onClick={onClose} />
+      <div id="dropDown-background" onClick={(e) => onClose(e)} />
       <div id="dropDown-content">{children}</div>
     </div>,
     modalNode
