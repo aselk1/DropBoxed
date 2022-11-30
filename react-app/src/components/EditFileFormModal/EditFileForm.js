@@ -7,7 +7,7 @@ const EditFileForm = ({file, setShowModal}) => {
   const dispatch = useDispatch()
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState(file.name)
-  const [desc, setDesc] = useState(file.desc);
+  const [desc, setDesc] = useState(file.desc || "");
   const [priv, setPriv] = useState(file.private)
   const [newFile, setNewFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
