@@ -23,7 +23,7 @@ const EditFileForm = ({ file, setShowModal }) => {
     );
     if (dispatchData) {
       setErrors(dispatchData);
-      setImageLoading(false)
+      setImageLoading(false);
     }
     //catch res and or errors
   };
@@ -77,6 +77,7 @@ const EditFileForm = ({ file, setShowModal }) => {
           onChange={(e) => setDesc(e.target.value)}
         />
         <input
+          className="pointer"
           name="private"
           type="checkbox"
           // placeholder="File Name"

@@ -89,6 +89,7 @@ const FileForm = ({ setShowModal }) => {
             Private
           </label>
           <input
+            className="pointer"
             name="private"
             type="checkbox"
             // placeholder="File Name"
@@ -97,7 +98,6 @@ const FileForm = ({ setShowModal }) => {
           />
         </div>
         <input
-          // placeholder="Drag Song Here"
           type="file"
           // value={url}
           onChange={updateFile}

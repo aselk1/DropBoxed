@@ -61,6 +61,7 @@ const FolderForm = ({setShowModal}) => {
             Private
           </label>
           <input
+            className="pointer"
             name="private"
             type="checkbox"
             // placeholder="File Name"
