@@ -95,12 +95,6 @@ const Folders = ({ user, loaded }) => {
                 </div>
                 {folder.user_id === user.id && (
                   <div>
-                    {/* <button
-                      className="menuButton2"
-                      onClick={(e) => folderModal(folder.id, e)}
-                    >
-                      <i class="fa-solid fa-ellipsis ellipsis"></i>
-                    </button> */}
                     <div className="absolute">
                       <DropDownProvider>
                         {folderId === folder.id && (

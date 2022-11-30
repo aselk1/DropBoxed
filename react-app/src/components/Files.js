@@ -48,31 +48,39 @@ const Files = ({ user, loaded }) => {
         </div>
         {files &&
           files.map((file) => (
-            <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
-              <div className="flexRow alignCenter">
-                <img src={filePic} className="filePic"></img>
-                {file.user_id === user.id && (
-                  <i class="fa-solid fa-star star"></i>
-                )}
-                {file.name.substring(0, 40)}
-              </div>
-              <div>
-                <button
-                  className="menuButton2"
-                  onClick={() => setFileId(file.id)}
-                >
-                  <i class="fa-solid fa-ellipsis ellipsis"></i>
-                </button>
-                <div className="absolute">
-                  <DropDownProvider>
-                    {fileId === file.id && (
-                      <FileDropDownModal
-                        setFileId={setFileId}
-                        file={file}
-                        user={user}
-                      />
+            <div>
+              <div className="widthFull"></div>
+              <div className="widthFull flexRow alignCenter">
+                <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
+                  <div className="flexRow alignCenter">
+                    <img src={filePic} className="filePic"></img>
+                    {file.user_id === user.id && (
+                      <i class="fa-solid fa-star star"></i>
                     )}
-                  </DropDownProvider>
+                    {file.name.substring(0, 40)}
+                  </div>
+                  <div className="testtest"></div>
+                  <div>
+                    <button
+                      className="menuButton2"
+                      onClick={() => setFileId(file.id)}
+                    >
+                      <i class="fa-solid fa-ellipsis ellipsis"></i>
+                    </button>
+                  </div>
+                  <div>
+                    <div className="absolute">
+                      <DropDownProvider>
+                        {fileId === file.id && (
+                          <FileDropDownModal
+                            setFileId={setFileId}
+                            file={file}
+                            user={user}
+                          />
+                        )}
+                      </DropDownProvider>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
