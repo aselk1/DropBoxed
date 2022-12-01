@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as folderActions from '../../store/folders';
+import * as folderActions from "../../store/folders";
 import folderPic from "../images/folderPic.png";
 
-const FolderForm = ({setShowModal}) => {
-  const dispatch = useDispatch()
+const FolderForm = ({ setShowModal }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("")
-  const [priv, setPriv] = useState(0)
+  const [name, setName] = useState("");
+  const [priv, setPriv] = useState(0);
   const [imageLoading, setImageLoading] = useState(false);
 
   const addFolder = async (e) => {
     e.preventDefault();
-    setImageLoading(true)
+    setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, priv };
@@ -22,19 +22,18 @@ const FolderForm = ({setShowModal}) => {
     );
     if (dispatchData) {
       setErrors(dispatchData);
-      setImageLoading(false)
+      setImageLoading(false);
     }
     //catch res and or errors
   };
 
-
   const setPrivate = () => {
-    if (priv === 0) setPriv(1)
-    else setPriv(0)
-  }
+    if (priv === 0) setPriv(1);
+    else setPriv(0);
+  };
 
   return (
-    <form onSubmit={addFolder}>
+    <form onSubmit={addFolder} className="formContainer">
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -44,8 +43,8 @@ const FolderForm = ({setShowModal}) => {
         <img src={folderPic} className="folderPic"></img>
         <h2 className="fontHead">Create Folder</h2>
       </div>
-      <div className="flexCol fullPad">
-        <label className="font filesPadding" htmlFor="name">
+      <div className="flexCol fullPad heightCreate">
+        <label className="font inputsPadding" htmlFor="name">
           Name
         </label>
         <input
@@ -57,7 +56,7 @@ const FolderForm = ({setShowModal}) => {
           required
         />
         <div className="flexRow alignCenter">
-          <label className="font filesPadding" htmlFor="private">
+          <label className="font inputsPadding" htmlFor="private">
             Private
           </label>
           <input
@@ -69,11 +68,13 @@ const FolderForm = ({setShowModal}) => {
             onChange={setPrivate}
           />
         </div>
-        <div className="flexRow alignCenter widthFull justEnd">
-          <button className="createButton2" type="submit">
-            {imageLoading && "Loading..."}
-            {!imageLoading && "Create"}
-          </button>
+        <div className="flexCol justEnd heightCreate">
+          <div className="flexRow alignCenter widthFull justEnd">
+            <button className="createButton2" type="submit">
+              {imageLoading && "Loading..."}
+              {!imageLoading && "Create"}
+            </button>
+          </div>
         </div>
       </div>
     </form>

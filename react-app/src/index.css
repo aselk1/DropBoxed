@@ -72,6 +72,10 @@ a {
     justify-content: space-between;
 }
 
+.justEnd {
+    justify-content: flex-end;
+}
+
 .alignCenter {
     align-items: center;
 }
@@ -101,15 +105,20 @@ ul {
     width: 100%;
 }
 
+.heightCreate {
+    height: 390px;
+}
+
+.heightUpload {
+    height: 160px;
+}
+
+
 .width75 {
     width: 68%;
     max-width: 750px;
 }
 
-.heightFull {
-    height: 100%;
-    min-height: 100%;
-}
 
 .sign {
     font-size: 20px;
@@ -248,6 +257,11 @@ ul {
     height: 30px;
 }
 
+.grow {
+    flex-grow: 1;
+    width: 2px
+}
+
 .plainBorder {
     border-bottom: solid black 1px;
 }
@@ -337,4 +351,15 @@ ul {
 
 .fullPad {
     padding: 20px;
+}
+
+.formContainer {
+    height: 500px;
+    width: 500px;
+}
+
+
+.inputsPadding {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

@@ -52,18 +52,18 @@ const FileForm = ({ setShowModal }) => {
   };
 
   return (
-    <form onSubmit={addFile}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
+    <form onSubmit={addFile} className="formContainer">
       <div className="flexRow alignCenter leftPad rightPad plainBorder">
         <img src={filePic} className="filePic"></img>
         <h2 className="fontHead">Upload File</h2>
       </div>
-      <div className="flexCol fullPad">
-        <label className="font filesPadding" htmlFor="name">
+      <div className="flexCol fullPad heightCreate">
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <label className="font inputsPadding" htmlFor="name">
           Name
         </label>
         <input
@@ -74,7 +74,7 @@ const FileForm = ({ setShowModal }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <label className="font filesPadding" htmlFor="desc">
+        <label className="font inputsPadding" htmlFor="desc">
           Description
         </label>
         <textarea
@@ -85,7 +85,7 @@ const FileForm = ({ setShowModal }) => {
           onChange={(e) => setDesc(e.target.value)}
         />
         <div className="flexRow alignCenter">
-          <label className="font filesPadding" htmlFor="private">
+          <label className="font inputsPadding" htmlFor="private">
             Private
           </label>
           <input
@@ -103,11 +103,13 @@ const FileForm = ({ setShowModal }) => {
           onChange={updateFile}
           required
         />
+        <div className="flexCol justEnd heightUpload">
         <div className="flexRow alignCenter widthFull justEnd">
           <button className="createButton2" type="submit">
             {imageLoading && "Loading..."}
             {!imageLoading && "Upload"}
           </button>
+        </div>
         </div>
       </div>
     </form>
