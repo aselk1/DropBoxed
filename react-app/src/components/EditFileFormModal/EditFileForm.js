@@ -52,13 +52,13 @@ const EditFileForm = ({ file, setShowModal }) => {
 
   return (
     <form onSubmit={addFile}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
       <h2>Edit File</h2>
       <div className="flexCol">
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
         <label htmlFor="name">Name</label>
         <input
           name="name"
@@ -90,8 +90,12 @@ const EditFileForm = ({ file, setShowModal }) => {
           // value={url}
           onChange={updateFile}
         />
-        <button type="submit">Add File</button>
-        {imageLoading && <p>Loading...</p>}
+        <div className="flexRow alignCenter widthFull justEnd">
+          <button className="createButton2" type="submit">
+            {imageLoading && "Loading..."}
+            {!imageLoading && "Edit"}
+          </button>
+        </div>
       </div>
     </form>
   );

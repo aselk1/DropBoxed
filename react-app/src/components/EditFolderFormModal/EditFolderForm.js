@@ -11,22 +11,20 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
   const [priv, setPriv] = useState(folder.private);
   const [imageLoading, setImageLoading] = useState(false);
 
-  const addFolder = (e) => {
+  const addFolder = async (e) => {
     e.preventDefault();
     setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, priv };
-    return (
-      dispatch(folderActions.fetchEditFolder(data, setShowModal, folder.id))
-        //catch res and or errors
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(Object.values(data.errors));
-          }
-        })
+    const dispatchData = await dispatch(
+      folderActions.fetchEditFolder(data, setShowModal, folder.id)
     );
+    if (dispatchData) {
+      setErrors(dispatchData);
+      setImageLoading(false);
+    }
+    //catch res and or errors
   };
 
   const setPrivate = () => {
@@ -35,9 +33,9 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
   };
 
   const addFile = async (fileId, e) => {
-    e.preventDefault()
-    await dispatch(folderActions.fetchAddFile(folder.id, fileId))
-  }
+    e.preventDefault();
+    await dispatch(folderActions.fetchAddFile(folder.id, fileId));
+  };
 
   const removeFile = async (fileId, e) => {
     e.preventDefault();
@@ -48,6 +46,11 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
     <form onSubmit={addFolder}>
       <h2>Edit Folder</h2>
       <div className="flexCol">
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
         <label htmlFor="name">Name</label>
         <input
           name="name"
@@ -97,8 +100,12 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
               return null;
             })}
         </div>
-        <button type="submit">Edit Folder</button>
-        {imageLoading && <p>Loading...</p>}
+        <div className="flexRow alignCenter widthFull justEnd">
+          <button className="createButton2" type="submit">
+            {imageLoading && "Loading..."}
+            {!imageLoading && "Edit"}
+          </button>
+        </div>
       </div>
     </form>
   );
