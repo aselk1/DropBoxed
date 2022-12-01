@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as fileActions from "../../store/files";
-import filePic from '../images/filePic.png'
+import filePic from "../images/filePic.png";
 
 const FileForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const FileForm = ({ setShowModal }) => {
     );
     if (dispatchData) {
       setErrors(dispatchData);
-      setImageLoading(false)
+      setImageLoading(false);
     }
     //catch res and or errors
   };
@@ -104,12 +104,12 @@ const FileForm = ({ setShowModal }) => {
           required
         />
         <div className="flexCol justEnd heightUpload">
-        <div className="flexRow alignCenter widthFull justEnd">
-          <button className="createButton2" type="submit">
-            {imageLoading && "Loading..."}
-            {!imageLoading && "Upload"}
-          </button>
-        </div>
+          <div className="flexRow alignCenter widthFull justEnd">
+            <button className="createButton2" type="submit">
+              {imageLoading && "Loading..."}
+              {!imageLoading && "Upload"}
+            </button>
+          </div>
         </div>
       </div>
     </form>

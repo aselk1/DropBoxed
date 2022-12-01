@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as fileActions from "../../store/files";
+import filePic from "../images/filePic.png";
 
 const EditFileForm = ({ file, setShowModal }) => {
   const dispatch = useDispatch();
@@ -51,15 +52,20 @@ const EditFileForm = ({ file, setShowModal }) => {
   };
 
   return (
-    <form onSubmit={addFile}>
-      <h2>Edit File</h2>
-      <div className="flexCol">
+    <form onSubmit={addFile} className="formContainer">
+      <div className="flexRow alignCenter leftPad rightPad plainBorder">
+        <img src={filePic} className="filePic"></img>
+        <h2 className="fontHead">Edit File</h2>
+      </div>
+      <div className="flexCol fullPad heightCreate">
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <label htmlFor="name">Name</label>
+        <label className="font inputsPadding" htmlFor="name">
+          Name
+        </label>
         <input
           name="name"
           type="text"
@@ -68,7 +74,9 @@ const EditFileForm = ({ file, setShowModal }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <label htmlFor="desc">Description</label>
+        <label className="font inputsPadding" htmlFor="desc">
+          Description
+        </label>
         <textarea
           name="desc"
           type="textarea"
@@ -76,25 +84,32 @@ const EditFileForm = ({ file, setShowModal }) => {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
-        <input
-          className="pointer"
-          name="private"
-          type="checkbox"
-          // placeholder="File Name"
-          checked={priv}
-          onChange={setPrivate}
-        />
+        <div className="flexRow alignCenter">
+          <label className="font inputsPadding" htmlFor="private">
+            Private
+          </label>
+          <input
+            className="pointer"
+            name="private"
+            type="checkbox"
+            // placeholder="File Name"
+            checked={priv}
+            onChange={setPrivate}
+          />
+        </div>
         <input
           // placeholder="Drag Song Here"
           type="file"
           // value={url}
           onChange={updateFile}
         />
-        <div className="flexRow alignCenter widthFull justEnd">
-          <button className="createButton2" type="submit">
-            {imageLoading && "Loading..."}
-            {!imageLoading && "Edit"}
-          </button>
+        <div className="flexCol justEnd heightUpload">
+          <div className="flexRow alignCenter widthFull justEnd">
+            <button className="createButton2" type="submit">
+              {imageLoading && "Loading..."}
+              {!imageLoading && "Edit"}
+            </button>
+          </div>
         </div>
       </div>
     </form>

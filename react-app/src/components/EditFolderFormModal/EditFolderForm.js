@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as folderActions from "../../store/folders";
+import folderPic from "../images/folderPic.png";
 
 const EditFolderForm = ({ folder, setShowModal, user }) => {
   const files = useSelector((state) => state.files.files);
@@ -43,15 +44,20 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
   };
 
   return (
-    <form onSubmit={addFolder}>
-      <h2>Edit Folder</h2>
-      <div className="flexCol">
+    <form onSubmit={addFolder} className="formContainer">
+      <div className="flexRow alignCenter leftPad rightPad plainBorder">
+        <img src={folderPic} className="folderPic"></img>
+        <h2 className="fontHead">Edit Folder</h2>
+      </div>
+      <div className="flexCol fullPad heightCreate">
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <label htmlFor="name">Name</label>
+        <label className="font inputsPadding" htmlFor="name">
+          Name
+        </label>
         <input
           name="name"
           type="text"
@@ -60,51 +66,62 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <input
-          className="pointer"
-          name="private"
-          type="checkbox"
-          // placeholder="File Name"
-          defaultChecked={priv}
-          onClick={(e) => setPrivate()}
-        />
-        <div>
-          <h4>Remove Files</h4>
+        <div className="flexRow alignCenter">
+          <label className="font inputsPadding" htmlFor="private">
+            Private
+          </label>
+          <input
+            className="pointer"
+            name="private"
+            type="checkbox"
+            // placeholder="File Name"
+            checked={priv}
+            onChange={setPrivate}
+          />
+        </div>
+        <h4 className="fontHead2">Remove Files</h4>
+        <div className="removeFiles">
           {folder &&
             folder.files.map((file) => {
               if (folder.files.map((file) => file.id).includes(file.id)) {
                 return (
-                  <div>
-                    {file.name}
-                    <button onClick={(e) => removeFile(file.id, e)}>
-                      Remove
-                    </button>
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {file.name.substring(0, 40)}
+                    <i
+                      class="fa-solid fa-xmark pointer rightPad xmark"
+                      onClick={(e) => removeFile(file.id, e)}
+                    ></i>
                   </div>
                 );
               }
               return null;
             })}
         </div>
-        <div>
-          <h4>Add Files</h4>
+        <h4 className="fontHead2">Add Files</h4>
+        <div className="removeFiles">
           {files &&
             files.map((file) => {
               if (!folder.files.map((file) => file.id).includes(file.id)) {
                 return (
-                  <div>
-                    {file.name}
-                    <button onClick={(e) => addFile(file.id, e)}>Add</button>
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {file.name.substring(0, 40)}
+                    <i
+                      class="fa-solid fa-check pointer rightPad checkMark"
+                      onClick={(e) => addFile(file.id, e)}
+                    ></i>
                   </div>
                 );
               }
               return null;
             })}
         </div>
-        <div className="flexRow alignCenter widthFull justEnd">
-          <button className="createButton2" type="submit">
-            {imageLoading && "Loading..."}
-            {!imageLoading && "Edit"}
-          </button>
+        <div className="flexCol justEnd heightEdit">
+          <div className="flexRow alignCenter widthFull justEnd">
+            <button className="createButton2" type="submit">
+              {imageLoading && "Loading..."}
+              {!imageLoading && "Edit"}
+            </button>
+          </div>
         </div>
       </div>
     </form>

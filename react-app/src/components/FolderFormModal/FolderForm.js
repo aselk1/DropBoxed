@@ -34,16 +34,16 @@ const FolderForm = ({ setShowModal }) => {
 
   return (
     <form onSubmit={addFolder} className="formContainer">
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
       <div className="flexRow alignCenter leftPad rightPad plainBorder">
         <img src={folderPic} className="folderPic"></img>
         <h2 className="fontHead">Create Folder</h2>
       </div>
       <div className="flexCol fullPad heightCreate">
+      <div>
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
         <label className="font inputsPadding" htmlFor="name">
           Name
         </label>
