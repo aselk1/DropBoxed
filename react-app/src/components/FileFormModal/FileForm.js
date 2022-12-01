@@ -1,34 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as fileActions from '../../store/files'
+import * as fileActions from "../../store/files";
+import filePic from '../images/filePic.png'
 
-const FileForm = ({setShowModal}) => {
-  const dispatch = useDispatch()
+const FileForm = ({ setShowModal }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const [priv, setPriv] = useState(0)
+  const [priv, setPriv] = useState(0);
   const [file, setFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
 
-  const addFile = (e) => {
+  const addFile = async (e) => {
     e.preventDefault();
-    setImageLoading(true)
+    setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, desc, priv, file };
-    return (
-      dispatch(
-        fileActions.fetchPostFile(data, setShowModal))
-        //catch res and or errors
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(Object.values(data.errors));
-          }
-        })
+    const dispatchData = await dispatch(
+      fileActions.fetchPostFile(data, setShowModal)
     );
+    if (dispatchData) {
+      setErrors(dispatchData);
+      setImageLoading(false)
+    }
+    //catch res and or errors
   };
 
   const updateFile = (e) => {
@@ -49,15 +47,25 @@ const FileForm = ({setShowModal}) => {
   };
 
   const setPrivate = () => {
-    if (priv === 0) setPriv(1)
-    else setPriv(0)
-  }
+    if (priv === 0) setPriv(1);
+    else setPriv(0);
+  };
 
   return (
-    <form onSubmit={addFile}>
-      <h2>Upload File</h2>
-      <div>
-        <label htmlFor="name">Name</label>
+    <form onSubmit={addFile} className="formContainer">
+      <div className="flexRow alignCenter leftPad rightPad plainBorder">
+        <img src={filePic} className="filePic"></img>
+        <h2 className="fontHead">Upload File</h2>
+      </div>
+      <div className="flexCol fullPad heightCreate">
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <label className="font inputsPadding" htmlFor="name">
+          Name
+        </label>
         <input
           name="name"
           type="text"
@@ -66,7 +74,9 @@ const FileForm = ({setShowModal}) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <label htmlFor="desc">Description</label>
+        <label className="font inputsPadding" htmlFor="desc">
+          Description
+        </label>
         <textarea
           name="desc"
           type="textarea"
@@ -74,22 +84,33 @@ const FileForm = ({setShowModal}) => {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
+        <div className="flexRow alignCenter">
+          <label className="font inputsPadding" htmlFor="private">
+            Private
+          </label>
+          <input
+            className="pointer"
+            name="private"
+            type="checkbox"
+            // placeholder="File Name"
+            checked={priv}
+            onChange={setPrivate}
+          />
+        </div>
         <input
-          name="private"
-          type="checkbox"
-          // placeholder="File Name"
-          checked={priv}
-          onChange={setPrivate}
-        />
-        <input
-          // placeholder="Drag Song Here"
           type="file"
           // value={url}
           onChange={updateFile}
           required
         />
-        <button type="submit">Add File</button>
-        {imageLoading && <p>Loading...</p>}
+        <div className="flexCol justEnd heightUpload">
+        <div className="flexRow alignCenter widthFull justEnd">
+          <button className="createButton2" type="submit">
+            {imageLoading && "Loading..."}
+            {!imageLoading && "Upload"}
+          </button>
+        </div>
+        </div>
       </div>
     </form>
   );

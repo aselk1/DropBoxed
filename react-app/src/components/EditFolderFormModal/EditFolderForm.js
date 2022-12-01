@@ -58,6 +58,7 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
           required
         />
         <input
+          className="pointer"
           name="private"
           type="checkbox"
           // placeholder="File Name"
@@ -70,13 +71,15 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
             folder.files.map((file) => {
               if (folder.files.map((file) => file.id).includes(file.id)) {
                 return (
-              <div>
-                {file.name}
-                <button onClick={(e) => removeFile(file.id, e)}>Remove</button>
-              </div>
-                )
+                  <div>
+                    {file.name}
+                    <button onClick={(e) => removeFile(file.id, e)}>
+                      Remove
+                    </button>
+                  </div>
+                );
               }
-              return null
+              return null;
             })}
         </div>
         <div>

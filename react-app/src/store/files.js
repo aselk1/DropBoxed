@@ -62,7 +62,14 @@ export const fetchPostFile = (data, setShowModal) => async (dispatch) => {
     const file = await response.json();
     dispatch(postFile(file));
     setShowModal(false);
-    return response;
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ["An error occurred. Please try again."];
   }
 };
 
@@ -80,9 +87,16 @@ export const fetchEditFile = (data, setShowModal, id) => async (dispatch) => {
   if (response.ok) {
     const file = await response.json();
     dispatch(editFile(file));
-    dispatch(folderActions.fetchAllFolders())
+    dispatch(folderActions.fetchAllFolders());
     setShowModal(false);
-    return response;
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ["An error occurred. Please try again."];
   }
 };
 

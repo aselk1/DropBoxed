@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as fileActions from '../../store/files'
+import * as fileActions from "../../store/files";
 
-const EditFileForm = ({file, setShowModal}) => {
-  const dispatch = useDispatch()
+const EditFileForm = ({ file, setShowModal }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState(file.name)
-  const [desc, setDesc] = useState(file.desc);
-  const [priv, setPriv] = useState(file.private)
+  const [name, setName] = useState(file.name);
+  const [desc, setDesc] = useState(file.desc || "");
+  const [priv, setPriv] = useState(file.private);
   const [newFile, setNewFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
 
-  const addFile = (e) => {
+  const addFile = async (e) => {
     e.preventDefault();
-    setImageLoading(true)
+    setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, desc, priv, newFile };
-    return (
-      dispatch(
-        fileActions.fetchEditFile(data, setShowModal, file.id))
-        //catch res and or errors
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(Object.values(data.errors));
-          }
-        })
+    const dispatchData = await dispatch(
+      fileActions.fetchEditFile(data, setShowModal, file.id)
     );
+    if (dispatchData) {
+      setErrors(dispatchData);
+      setImageLoading(false);
+    }
+    //catch res and or errors
   };
 
   const updateFile = (e) => {
@@ -49,12 +46,17 @@ const EditFileForm = ({file, setShowModal}) => {
   };
 
   const setPrivate = () => {
-    if (priv === 0 | priv === false) setPriv(1)
-    else setPriv(0)
-  }
+    if ((priv === 0) | (priv === false)) setPriv(1);
+    else setPriv(0);
+  };
 
   return (
     <form onSubmit={addFile}>
+      <div>
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
       <h2>Edit File</h2>
       <div className="flexCol">
         <label htmlFor="name">Name</label>
@@ -75,6 +77,7 @@ const EditFileForm = ({file, setShowModal}) => {
           onChange={(e) => setDesc(e.target.value)}
         />
         <input
+          className="pointer"
           name="private"
           type="checkbox"
           // placeholder="File Name"

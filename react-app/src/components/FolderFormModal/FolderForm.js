@@ -1,45 +1,52 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as folderActions from '../../store/folders'
+import * as folderActions from "../../store/folders";
+import folderPic from "../images/folderPic.png";
 
-const FolderForm = ({setShowModal}) => {
-  const dispatch = useDispatch()
+const FolderForm = ({ setShowModal }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("")
-  const [priv, setPriv] = useState(0)
+  const [name, setName] = useState("");
+  const [priv, setPriv] = useState(0);
   const [imageLoading, setImageLoading] = useState(false);
 
-  const addFolder = (e) => {
+  const addFolder = async (e) => {
     e.preventDefault();
-    setImageLoading(true)
+    setImageLoading(true);
     //reset errors array
     setErrors([]);
     const data = { name, priv };
-    return (
-      dispatch(
-        folderActions.fetchPostFolder(data, setShowModal))
-        //catch res and or errors
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(Object.values(data.errors));
-          }
-        })
+    const dispatchData = await dispatch(
+      folderActions.fetchPostFolder(data, setShowModal)
     );
+    if (dispatchData) {
+      setErrors(dispatchData);
+      setImageLoading(false);
+    }
+    //catch res and or errors
   };
 
-
   const setPrivate = () => {
-    if (priv === 0) setPriv(1)
-    else setPriv(0)
-  }
+    if (priv === 0) setPriv(1);
+    else setPriv(0);
+  };
 
   return (
-    <form onSubmit={addFolder}>
-      <h2>Upload Folder</h2>
+    <form onSubmit={addFolder} className="formContainer">
       <div>
-        <label htmlFor="name">Name</label>
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
+      <div className="flexRow alignCenter leftPad rightPad plainBorder">
+        <img src={folderPic} className="folderPic"></img>
+        <h2 className="fontHead">Create Folder</h2>
+      </div>
+      <div className="flexCol fullPad heightCreate">
+        <label className="font inputsPadding" htmlFor="name">
+          Name
+        </label>
         <input
           name="name"
           type="text"
@@ -48,15 +55,27 @@ const FolderForm = ({setShowModal}) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <input
-          name="private"
-          type="checkbox"
-          // placeholder="File Name"
-          checked={priv}
-          onChange={setPrivate}
-        />
-        <button type="submit">Add Folder</button>
-        {imageLoading && <p>Loading...</p>}
+        <div className="flexRow alignCenter">
+          <label className="font inputsPadding" htmlFor="private">
+            Private
+          </label>
+          <input
+            className="pointer"
+            name="private"
+            type="checkbox"
+            // placeholder="File Name"
+            checked={priv}
+            onChange={setPrivate}
+          />
+        </div>
+        <div className="flexCol justEnd heightCreate">
+          <div className="flexRow alignCenter widthFull justEnd">
+            <button className="createButton2" type="submit">
+              {imageLoading && "Loading..."}
+              {!imageLoading && "Create"}
+            </button>
+          </div>
+        </div>
       </div>
     </form>
   );
