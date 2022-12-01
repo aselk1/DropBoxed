@@ -29,6 +29,11 @@ input::file-selector-button:hover {
     background-color: rgb(216, 216, 216);
 }
 
+
+.text {
+    font-family: 'Open Sans', sans-serif;;
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -103,6 +108,10 @@ ul {
 
 .widthFull {
     width: 100%;
+}
+
+.heightFull {
+    height: 100%;
 }
 
 .heightCreate {
@@ -299,6 +308,33 @@ ul {
     font-weight: 200;
 }
 
+.fontHead2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 200;
+    padding: 0;
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.fontHead3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 45px;
+    font-weight: 200;
+    color: white;
+    text-align: center;
+}
+
+.fontHead4 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+    color: white;
+    text-align: center;
+}
+
 .createIcon {
     color: black;
     font-weight: 3000;
@@ -362,4 +398,44 @@ ul {
 .inputsPadding {
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+.removeFiles {
+    border: solid black 1px;
+    padding: 3px;
+    height: 80px;
+    overflow-y: scroll;
+
+}
+
+.removePadding {
+    padding: 3px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.xmark:hover {
+    color: red;
+}
+
+.checkMark:hover {
+    color: green;
+}
+
+
+.heightEdit {
+    height: 35px;
+}
+
+.bottomMargin {
+    margin-bottom: 1px;
+}
+
+.splashBack {
+    background-color: #1E1919;
+    height: 95%;
+}
+
+.splashBack2 {
+    width: 65%;
+    max-width: 750px;
 }
