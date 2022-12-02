@@ -503,3 +503,9 @@ ul {
     height: 50px;
     z-index: 1000;
 }
+
+.linkedin {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 38px;
+}
