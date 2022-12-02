@@ -46,7 +46,7 @@ const Files = ({ user, loaded }) => {
         <div className="headerPadding flexRow justSpace">
           <FileFormModal />
           <div className="flexCol justEnd">
-            <i class="fa-solid fa-star star">My Files/Folders</i>
+            <i class="fa-solid fa-star star">My Files</i>
           </div>
         </div>
         {files &&
@@ -63,6 +63,7 @@ const Files = ({ user, loaded }) => {
                     {file.name.substring(0, 40)}
                   </div>
                   <div className="testtest"></div>
+                  {file.file_url.split(".")[5].toUpperCase()}
                   <div>
                     <button
                       className="menuButton2"
