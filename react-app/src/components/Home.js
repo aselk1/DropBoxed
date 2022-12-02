@@ -24,7 +24,7 @@ const Home = ({ user, loaded }) => {
   const [folderFilesId, setFolderFilesId] = useState(-1);
   const [fileId, setFileId] = useState(-1);
   const [descId, setDescId] = useState(-1);
-  const [timeoutId, setTimeoutId] = useState(null)
+  const [timeoutId, setTimeoutId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -98,7 +98,9 @@ const Home = ({ user, loaded }) => {
                   {folder.user_id === user.id && (
                     <button
                       className="menuButton2"
-                      onClick={(e) => folderModal(folder.id, e)}
+                      onClick={(e) => {
+                        folderModal(folder.id, e);
+                      }}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>
@@ -113,6 +115,7 @@ const Home = ({ user, loaded }) => {
                             setFolderId={setFolderId}
                             folder={folder}
                             user={user}
+                            setDescId={setDescId}
                           />
                         )}
                       </DropDownProvider>
@@ -167,7 +170,11 @@ const Home = ({ user, loaded }) => {
                   <div>
                     <button
                       className="menuButton2"
-                      onClick={() => setFileId(file.id)}
+                      onClick={() => {
+                        setDescId(-1);
+                        clearTimeout(timeoutId);
+                        setFileId(file.id);
+                      }}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>
