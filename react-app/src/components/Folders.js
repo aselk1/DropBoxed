@@ -64,7 +64,7 @@ const Folders = ({ user, loaded }) => {
         <div className="headerPadding flexRow justSpace">
           <FolderFormModal />
           <div className="flexCol justEnd">
-            <i class="fa-solid fa-star star">My Files/Folders</i>
+            <i class="fa-solid fa-star star">My Folders</i>
           </div>
         </div>
         {folders &&
