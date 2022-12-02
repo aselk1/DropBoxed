@@ -44,19 +44,19 @@ live site: https://dropboxed.onrender.com
 
 This is the DropBoxed home page.
 
-![image](https://github.com/aselk1/Render-Deployment/blob/main/site_pic.png)
+![image](https://github.com/aselk1/DropBoxed/blob/main/pics/ReadMe/splash.png)
 
 ## Files
 
 This is where users can upload a new file.
 
-![image](https://github.com/aselk1/Render-Deployment/blob/main/add_story.png)
+![image](https://github.com/aselk1/DropBoxed/blob/main/pics/ReadMe/fileupload.png)
 
 ## Folders
 
 This is where users can create a new folder.
 
-![image](https://github.com/aselk1/Render-Deployment/blob/main/comment.png)
+![image](https://github.com/aselk1/DropBoxed/blob/main/pics/ReadMe/foldercreate.png)
 
 
 ## Future Features
