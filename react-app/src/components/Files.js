@@ -43,8 +43,11 @@ const Files = ({ user, loaded }) => {
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
         <h2 className="fontHead">Files</h2>
-        <div className="headerPadding">
+        <div className="headerPadding flexRow justSpace">
           <FileFormModal />
+          <div className="flexCol justEnd">
+            <i class="fa-solid fa-star star">My Files/Folders</i>
+          </div>
         </div>
         {files &&
           files.map((file) => (
