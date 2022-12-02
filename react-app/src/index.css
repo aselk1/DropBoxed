@@ -456,6 +456,7 @@ ul {
 .homePage {
     width: 70%;
     max-height: 567px;
+    max-width: 1168px;
 }
 
 .signIn {
