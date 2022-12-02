@@ -45,8 +45,8 @@ def post_file():
     if "file" not in request.files:
         return {"errors": "file required"}, 400
     file = request.files["file"]
-    if not allowed_file(file.filename):
-        return {"errors": "file type not permitted"}, 400
+    # if not allowed_file(file.filename):
+    #     return {"errors": "file type not permitted"}, 400
     file.filename = get_unique_filename(file.filename)
     form = FileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -86,8 +86,8 @@ def edit_file(id):
     new_file = None
     if "file" in request.files:
         new_file = request.files["file"]
-        if not allowed_file(new_file.filename):
-            return {"errors": "file type not permitted"}, 400
+        # if not allowed_file(new_file.filename):
+        #     return {"errors": "file type not permitted"}, 400
         new_file.filename = get_unique_filename(new_file.filename)
     file = File.query.get(id)
     url = file.file_url
