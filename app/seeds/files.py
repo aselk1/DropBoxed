@@ -4,35 +4,40 @@ from app.models import db, File, Folder, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_files():
     file1 = File(
-        name='File1',
-        desc='File1',
-        file_url='https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png',
+        name='The Lion, the Witch and the Wardrobe',
+        desc='By: C. S. Lewis',
+        file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/00f5f6e40f5f41b4b7ebe3945a0a15cb.pdf',
         user_id=1,
         private=False
         )
     file2 = File(
-        name='File2',
-        desc='File2',
-        file_url='https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg',
+        name='Prince Caspian',
+        desc='By: C. S. Lewis',
+        file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/4c9863a50bd74863b39dcef0351cb7e4.pdf',
         user_id=1,
-        private=True
+        private=False
         )
     file3 = File(
-        name='File3',
-        file_url='https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg',
+        name='Downtown',
+        file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/4dc1bb59f4cd4b98b9a59b8e8058f6f5.mp3',
         user_id=1,
         private=False
         )
     file4 = File(
-        name='File4',
-        file_url='https://i.natgeofe.com/n/8022bf25-d5ef-48c1-b460-dbac1448e122/09-9226610_uploadsmember665562yourshot-665562-9226610jpg_igdjhxksrjifxjzu4rgbsw37bhp3eflutfvvbpyjwjhzlmh4iziq_3000x2000.jpg',
+        name='Piano',
+        file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/17fff56bf1814382b168f210190b6ced.mp3',
         user_id=2,
-        private=True
+        private=False
     )
     file5 = File(
-        name='File5',
-        desc='File5',
-        file_url='https://petapixel.com/assets/uploads/2021/06/Social-Medias-Impact-on-Landscape-and-Nature-Photography.jpg',
+        name='Scenery',
+        file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/3d1eab8266c24e3b90f8801fd25f1560.jpeg',
+        user_id=2,
+        private=False
+        )
+    file6 = File(
+        name='Lake',
+        file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/def28a5886f64305a0aac7c7d0c64637.jpeg',
         user_id=2,
         private=False
         )
@@ -41,19 +46,20 @@ def seed_files():
     db.session.add(file3)
     db.session.add(file4)
     db.session.add(file5)
+    db.session.add(file6)
 
     folder1 = Folder(
-        name='Folder1',
+        name='Pictures',
         user_id=1,
         private=False
         )
     folder2 = Folder(
-        name='Folder2',
+        name='Music',
         user_id=2,
-        private=True
+        private=False
         )
     folder3 = Folder(
-        name='Folder3',
+        name='Books',
         user_id=2,
         private=False
         )
@@ -61,21 +67,12 @@ def seed_files():
     db.session.add(folder1)
     db.session.add(folder2)
 
-    folder1.files.append(file1)
-    folder1.files.append(file2)
-    folder1.files.append(file3)
-    folder1.files.append(file4)
     folder1.files.append(file5)
-    folder2.files.append(file1)
-    folder2.files.append(file2)
+    folder1.files.append(file6)
     folder2.files.append(file3)
     folder2.files.append(file4)
-    folder2.files.append(file5)
     folder3.files.append(file1)
     folder3.files.append(file2)
-    folder3.files.append(file3)
-    folder3.files.append(file4)
-    folder3.files.append(file5)
 
 
 
