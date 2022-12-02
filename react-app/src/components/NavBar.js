@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 import favicon from './images/favicon.png'
+import linkedin from './images/linkedin.png'
+import github from "./images/github.png";
 import "../index.css";
 
 const NavBar = ({ user, loaded }) => {
@@ -19,11 +21,26 @@ const NavBar = ({ user, loaded }) => {
               >
                 <img src={favicon}></img>
               </NavLink>
+
               <NavLink to="/" exact={true} activeClassName="active">
                 <div className="height48 flexRow alignCenter">
                   <div className="logoText">DropBoxed</div>
                 </div>
               </NavLink>
+            </div>
+            <div>
+              <a
+                href="https://github.com/aselk1/DropBoxed"
+                className="height48"
+              >
+                <img className="height48 rightPad" src={github}></img>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/adam-selki-a3a674167"
+                className="height48"
+              >
+                <img className="linkedin" src={linkedin}></img>
+              </a>
             </div>
             <ul className="flexRow noBullets alignCenter">
               {/* <li key="home">
