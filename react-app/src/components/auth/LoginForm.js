@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import { useHistory } from 'react-router-dom';
+import signIn from '../images/signIn.png'
+
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -46,35 +48,48 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='email'>Email</label>
+    <div className="flexRow justCenter signInPad">
+      <img src={signIn}></img>
+      <form onSubmit={onLogin} className="flexCol signIn justCenter leftPad">
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <label className="font inputsPadding" htmlFor="email">
+          Email
+        </label>
         <input
-          name='email'
-          type='text'
-          placeholder='Email'
+          name="email"
+          type="text"
+          placeholder="Email"
           value={email}
           onChange={updateEmail}
+          className="signInInput"
+          required
         />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
+        <label className="font inputsPadding" htmlFor="password">
+          Password
+        </label>
         <input
-          name='password'
-          type='password'
-          placeholder='Password'
+          name="password"
+          type="password"
+          placeholder="Password"
           value={password}
           onChange={updatePassword}
+          className="signInInput"
+          required
         />
-        <button type='submit'>Login</button>
-        <button onClick={signInDemo}>Demo</button>
-      </div>
-    </form>
+        <div className="flexRow paddingTop justCenter">
+          <button className="loginButton marginRight" type="submit">
+            Sign In
+          </button>
+          <button className="loginButton" onClick={signInDemo}>
+            Demo
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

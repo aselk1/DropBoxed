@@ -84,20 +84,20 @@ const EditFileForm = ({ file, setShowModal }) => {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
-        <div className="flexRow alignCenter">
-          <label className="font inputsPadding" htmlFor="private">
+        <div className="flexRow alignCenter inputsPadding">
+          <label className="font" htmlFor="private">
             Private
           </label>
           <input
             className="pointer"
             name="private"
             type="checkbox"
-            // placeholder="File Name"
             checked={priv}
             onChange={setPrivate}
           />
         </div>
         <input
+          className='inputsPadding'
           // placeholder="Drag Song Here"
           type="file"
           // value={url}

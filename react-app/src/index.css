@@ -31,7 +31,7 @@ input::file-selector-button:hover {
 
 
 .text {
-    font-family: 'Open Sans', sans-serif;;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .pointer {
@@ -298,7 +298,7 @@ ul {
 
 .font {
     font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 900;
 }
 
@@ -354,6 +354,19 @@ ul {
     height: 30px;
 }
 
+.loginButton {
+    background-color: #0070E0;
+    border: none;
+    width: 70px;
+    height: 30px;
+    color: white;
+    border-radius: 3px;
+}
+
+.loginButton:hover {
+    background-color: #0061FE;
+}
+
 .createButton2:hover {
     background-color: rgb(216, 216, 216);
 }
@@ -397,7 +410,7 @@ ul {
 
 .inputsPadding {
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
 }
 
 .removeFiles {
@@ -423,7 +436,7 @@ ul {
 
 
 .heightEdit {
-    height: 35px;
+    height: 50px;
 }
 
 .bottomMargin {
@@ -438,4 +451,30 @@ ul {
 .splashBack2 {
     width: 65%;
     max-width: 750px;
+}
+
+.homePage {
+    width: 70%;
+}
+
+.signIn {
+    width:340px;
+
+}
+
+.signInPad {
+    padding-top: 100px;
+}
+
+.signInInput {
+    height: 25px;
+    font-size: 14px;
+}
+
+.marginRight {
+    margin-right: 15px;
+}
+
+.paddingTop {
+    padding-top: 15px;
 }

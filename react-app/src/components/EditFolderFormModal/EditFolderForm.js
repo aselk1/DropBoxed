@@ -66,8 +66,8 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <div className="flexRow alignCenter">
-          <label className="font inputsPadding" htmlFor="private">
+        <div className="flexRow alignCenter inputsPadding">
+          <label className="font" htmlFor="private">
             Private
           </label>
           <input
