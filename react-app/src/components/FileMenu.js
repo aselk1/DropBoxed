@@ -56,7 +56,11 @@ function FileMenu({ user, folder }) {
                   <div>
                     <button
                       className="menuButton2"
-                      onClick={() => setFileId(file.id)}
+                      onClick={() => {
+                        setDescId(-1);
+                        clearTimeout(timeoutId);
+                        setFileId(file.id)
+                      }}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
                     </button>
