@@ -13,6 +13,8 @@ const Files = ({ user, loaded }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
   const [fileId, setFileId] = useState(-1);
+  const [timeoutId, setTimeoutId] = useState(null);
+  const [descId, setDescId] = useState(-1);
   useEffect(() => {
     (async () => {
       if (user.id) {
@@ -54,13 +56,37 @@ const Files = ({ user, loaded }) => {
             <div>
               <div className="widthFull"></div>
               <div className="widthFull flexRow alignCenter">
-                <div className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover">
+                <div
+                  className="widthFull flexRow alignCenter justSpace filesPadding plainBorder fileHover"
+                  onMouseEnter={() => {
+                    setTimeoutId(
+                      setTimeout(function () {
+                        setDescId(file.id);
+                      }, 1000)
+                    );
+                  }}
+                  onMouseLeave={() => {
+                    setDescId(-1);
+                    clearTimeout(timeoutId);
+                  }}
+                >
                   <div className="flexRow alignCenter">
                     <img src={filePic} className="filePic"></img>
                     {file.user_id === user.id && (
                       <i class="fa-solid fa-star star"></i>
                     )}
-                    {file.name.substring(0, 40)}
+                    <div className="flexCol relative">
+                      {file.name.substring(0, 40)}
+                      {file.id === descId && file.desc && (
+                        <div>
+                          <textarea
+                            className="descPop absolute"
+                            disabled
+                            defaultValue={file.desc?.toString()}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="testtest"></div>
                   {file.file_url.split(".")[5].toUpperCase()}

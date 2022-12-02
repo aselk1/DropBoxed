@@ -83,6 +83,7 @@ const EditFileForm = ({ file, setShowModal }) => {
           placeholder="File Description"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
+          className="height100"
         />
         <div className="flexRow alignCenter inputsPadding">
           <label className="font" htmlFor="private">
