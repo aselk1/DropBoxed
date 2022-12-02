@@ -63,6 +63,7 @@ const Files = ({ user, loaded }) => {
                     {file.name.substring(0, 40)}
                   </div>
                   <div className="testtest"></div>
+                  {file.file_url.split(".")[5].toUpperCase()}
                   <div>
                     <button
                       className="menuButton2"
