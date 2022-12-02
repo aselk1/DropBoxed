@@ -84,8 +84,8 @@ const FileForm = ({ setShowModal }) => {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
-        <div className="flexRow alignCenter">
-          <label className="font inputsPadding" htmlFor="private">
+        <div className="flexRow alignCenter inputsPadding">
+          <label className="font" htmlFor="private">
             Private
           </label>
           <input
@@ -98,6 +98,7 @@ const FileForm = ({ setShowModal }) => {
           />
         </div>
         <input
+          className="inputsPadding"
           type="file"
           // value={url}
           onChange={updateFile}

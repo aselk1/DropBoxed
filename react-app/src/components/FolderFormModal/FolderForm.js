@@ -39,11 +39,11 @@ const FolderForm = ({ setShowModal }) => {
         <h2 className="fontHead">Create Folder</h2>
       </div>
       <div className="flexCol fullPad heightCreate">
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
         <label className="font inputsPadding" htmlFor="name">
           Name
         </label>
@@ -55,8 +55,8 @@ const FolderForm = ({ setShowModal }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <div className="flexRow alignCenter">
-          <label className="font inputsPadding" htmlFor="private">
+        <div className="flexRow alignCenter inputsPadding">
+          <label className="font" htmlFor="private">
             Private
           </label>
           <input
