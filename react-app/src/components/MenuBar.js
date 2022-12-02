@@ -6,24 +6,37 @@ import "../index.css";
 
 const MenuBar = ({ user, loaded }) => {
   return (
-    <div>
-      <div className="flexCol menuPadding">
-        {loaded && (
-          <nav className="flexCol">
-            <div className="flexCol">
-              <NavLink to="/home" exact={true} activeClassName="active">
-                <div className="menuButton">Home</div>
-              </NavLink>
-              <NavLink to="/files" exact={true} activeClassName="active">
-                <div className="menuButton">Files</div>
-              </NavLink>
-              <NavLink to="/folders" exact={true} activeClassName="active">
-                <div className="menuButton">Folders</div>
-              </NavLink>
-            </div>
-          </nav>
-        )}
-      </div>
+    <div className="flexCol menuPadding">
+      {loaded && (
+        <nav className="flexCol">
+          <div className="flexCol">
+            <NavLink
+              className="height27 hoverGrey"
+              to="/home"
+              exact={true}
+              activeClassName="active"
+            >
+              <div className="menuButton">Home</div>
+            </NavLink>
+            <NavLink
+              className="height27 hoverGrey"
+              to="/files"
+              exact={true}
+              activeClassName="active"
+            >
+              <div className="menuButton">Files</div>
+            </NavLink>
+            <NavLink
+              className="height27 hoverGrey"
+              to="/folders"
+              exact={true}
+              activeClassName="active"
+            >
+              <div className="menuButton">Folders</div>
+            </NavLink>
+          </div>
+        </nav>
+      )}
     </div>
   );
 };
