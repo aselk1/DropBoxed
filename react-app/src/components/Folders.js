@@ -61,8 +61,11 @@ const Folders = ({ user, loaded }) => {
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
         <h2 className="fontHead">Folders</h2>
-        <div className="headerPadding">
+        <div className="headerPadding flexRow justSpace">
           <FolderFormModal />
+          <div className="flexCol justEnd">
+            <i class="fa-solid fa-star star">My Files/Folders</i>
+          </div>
         </div>
         {folders &&
           folders.map((folder) => (

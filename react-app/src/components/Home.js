@@ -64,9 +64,14 @@ const Home = ({ user, loaded }) => {
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
       <div className="pagePad flexCol width75">
         <h2 className="fontHead">Home</h2>
-        <div className="headerPadding">
-          <FileFormModal />
-          <FolderFormModal />
+        <div className="headerPadding flexRow justSpace">
+          <div>
+            <FileFormModal />
+            <FolderFormModal />
+          </div>
+          <div className="flexCol justEnd">
+            <i class="fa-solid fa-star star">My Files/Folders</i>
+          </div>
         </div>
         {folders &&
           folders.map((folder) => (
