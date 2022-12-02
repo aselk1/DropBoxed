@@ -7,20 +7,20 @@ def seed_files():
         name='The Lion, the Witch and the Wardrobe',
         desc='By: C. S. Lewis',
         file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/00f5f6e40f5f41b4b7ebe3945a0a15cb.pdf',
-        user_id=1,
+        user_id=2,
         private=False
         )
     file2 = File(
         name='Prince Caspian',
         desc='By: C. S. Lewis',
         file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/4c9863a50bd74863b39dcef0351cb7e4.pdf',
-        user_id=1,
+        user_id=2,
         private=False
         )
     file3 = File(
         name='Downtown',
         file_url='https://dropboxed123.s3.us-west-1.amazonaws.com/4dc1bb59f4cd4b98b9a59b8e8058f6f5.mp3',
-        user_id=1,
+        user_id=2,
         private=False
         )
     file4 = File(
@@ -50,7 +50,7 @@ def seed_files():
 
     folder1 = Folder(
         name='Pictures',
-        user_id=1,
+        user_id=2,
         private=False
         )
     folder2 = Folder(
