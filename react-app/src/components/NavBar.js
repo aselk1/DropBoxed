@@ -32,12 +32,14 @@ const NavBar = ({ user, loaded }) => {
               <a
                 href="https://github.com/aselk1/DropBoxed"
                 className="height48"
+                target="_blank"
               >
                 <img className="height48 rightPad" src={github}></img>
               </a>
               <a
                 href="https://www.linkedin.com/in/adam-selki-a3a674167"
                 className="height48"
+                target="_blank"
               >
                 <img className="linkedin" src={linkedin}></img>
               </a>
