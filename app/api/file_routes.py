@@ -101,6 +101,7 @@ def edit_file(id):
                     return upload, 400
                 deleted = delete_file_from_s3(file.file_url.split(".com/")[1])
                 url = upload["url"]
+            print(form.data['private'])
             file.name = form.data['name']
             file.desc = form.data['desc']
             file.private = form.data['private']
