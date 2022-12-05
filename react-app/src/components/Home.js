@@ -166,7 +166,9 @@ const Home = ({ user, loaded }) => {
                     </div>
                   </div>
                   <div className="testtest"></div>
-                  {file.file_url.split(".")[5].toUpperCase()}
+                  {file.file_url
+                    .split(".")
+                    [file.file_url.split(".").length - 1].toUpperCase()}
                   <div>
                     <button
                       className="menuButton2"

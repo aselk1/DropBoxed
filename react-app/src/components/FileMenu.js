@@ -52,14 +52,16 @@ function FileMenu({ user, folder }) {
                     </div>
                   </div>
                   <div className="testtest"></div>
-                  {file.file_url.split(".")[5].toUpperCase()}
+                  {file.file_url
+                    .split(".")
+                    [file.file_url.split(".").length - 1].toUpperCase()}
                   <div>
                     <button
                       className="menuButton2"
                       onClick={() => {
                         setDescId(-1);
                         clearTimeout(timeoutId);
-                        setFileId(file.id)
+                        setFileId(file.id);
                       }}
                     >
                       <i class="fa-solid fa-ellipsis ellipsis"></i>
