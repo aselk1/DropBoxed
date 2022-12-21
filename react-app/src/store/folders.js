@@ -5,6 +5,18 @@ const DELETE_FOLDER = "folders/DELETE_FOLDERS";
 const REMOVE_FOLDERS = "files/REMOVE_FOLDERS";
 const ADD_FILE = "folders/ADD_FILE"
 const REMOVE_FILE = "folders/REMOVE_FILE"
+// const ADD_USER = "folders/ADD_USER";
+// const REMOVE_USER = "folders/REMOVE_USER";
+
+// const addUser = (folder) => ({
+//   type: ADD_USER,
+//   payload: folder,
+// });
+
+// const removeUser = (folder) => ({
+//   type: REMOVE_USER,
+//   payload: folder,
+// });
 
 const addFile = (folder) => ({
   type: ADD_FILE,
@@ -121,6 +133,28 @@ export const fetchAddFile = (folderId, fileId) => async (dispatch) => {
 
 export const fetchRemoveFile = (folderId, fileId) => async (dispatch) => {
   const res = await fetch(`/api/folder_files/${folderId}/${fileId}`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    const folder = await res.json();
+    dispatch(removeFile(folder));
+    return res;
+  }
+};
+
+export const fetchAddUser = (folderId, userId) => async (dispatch) => {
+  const res = await fetch(`/api/folders/${folderId}/${userId}`, {
+    method: "POST",
+  });
+  if (res.ok) {
+    const folder = await res.json();
+    dispatch(addFile(folder));
+    return res;
+  }
+};
+
+export const fetchRemoveUSer = (folderId, fileId) => async (dispatch) => {
+  const res = await fetch(`/api/folder_user/${folderId}/${fileId}`, {
     method: "DELETE",
   });
   if (res.ok) {

@@ -1,6 +1,15 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .folder_files import folder_files
 
+user_file = db.Table(
+    "user_file",
+    db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+    db.Column("file_id", db.Integer, db.ForeignKey(add_prefix_for_prod("files.id")), primary_key=True)
+)
+
+if environment == "production":
+    user_file.schema = SCHEMA
+
 
 class File(db.Model):
     __tablename__ = "files"
@@ -22,6 +31,12 @@ class File(db.Model):
         # backref="files"
     )
 
+    users = db.relationship(
+        "User",
+        secondary=user_file,
+        back_populates="files"
+    )
+
 
     def to_dict(self):
         return {
@@ -31,4 +46,5 @@ class File(db.Model):
             "file_url": self.file_url,
             "private": self.private,
             "user_id": self.user_id,
+            "users": [user.to_dict() for user in self.users]
         }

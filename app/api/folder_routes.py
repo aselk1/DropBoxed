@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import or_
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3)
-from app.models import File, Folder, db
+from app.models import File, Folder, db, User
 from app.forms import FileForm
 
 def validation_errors_to_error_messages(validation_errors):
@@ -76,4 +76,29 @@ def delete_folder(id):
         db.session.delete(folder)
         db.session.commit()
         return {"data": "deleted"}
+    return {'errors': ['Unauthorized']}
+
+
+@folder_routes.route('/<int:folder_id>/<int:user_id>', methods=['POST'])
+@login_required
+def post_folder_file(folder_id, user_id):
+    folder = Folder.query.get(folder_id)
+    user = User.query.get(user_id)
+    if current_user.id == folder.user_id:
+        folder.users.append(user)
+        db.session.add(folder)
+        db.session.commit()
+        return folder.to_dict()
+    return {'errors': ['Unauthorized']}
+
+@folder_routes.route('/<int:folder_id>/<int:user_id>', methods=['DELETE'])
+@login_required
+def delete_folder_file(folder_id, user_id):
+    folder = Folder.query.get(folder_id)
+    user = User.query.get(user_id)
+    if current_user.id == folder.user_id:
+        folder.users.remove(user)
+        db.session.add(folder)
+        db.session.commit()
+        return folder.to_dict()
     return {'errors': ['Unauthorized']}

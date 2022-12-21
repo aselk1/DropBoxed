@@ -127,7 +127,7 @@ ul {
 }
 
 .heightCreate {
-    height: 390px;
+    height: 359px;
 }
 
 .heightUpload {
@@ -430,7 +430,7 @@ ul {
 .removeFiles {
     border: solid black 1px;
     padding: 3px;
-    height: 80px;
+    min-height: 80px;
     overflow-y: scroll;
 
 }
@@ -450,7 +450,7 @@ ul {
 
 
 .heightEdit {
-    height: 50px;
+    /* height: 50px; */
 }
 
 .bottomMargin {
@@ -508,4 +508,8 @@ ul {
     padding-top: 5px;
     padding-bottom: 5px;
     height: 38px;
+}
+
+.scroll {
+    overflow-y: auto;
 }

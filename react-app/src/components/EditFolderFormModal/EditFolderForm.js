@@ -49,7 +49,7 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
         <img src={folderPic} className="folderPic"></img>
         <h2 className="fontHead">Edit Folder</h2>
       </div>
-      <div className="flexCol fullPad heightCreate">
+      <div className="flexCol fullPad heightCreate scroll">
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
@@ -115,6 +115,43 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
               return null;
             })}
         </div>
+        <h4 className="fontHead2">Add User Access</h4>
+        <div className="removeFiles">
+          {folder &&
+            folder.files.map((file) => {
+              if (folder.files.map((file) => file.id).includes(file.id)) {
+                return (
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {file.name.substring(0, 40)}
+                    <i
+                      class="fa-solid fa-xmark pointer rightPad xmark"
+                      onClick={(e) => removeFile(file.id, e)}
+                    ></i>
+                  </div>
+                );
+              }
+              return null;
+            })}
+        </div>
+        <h4 className="fontHead2">Remove User Access</h4>
+        <div className="removeFiles">
+          {folder &&
+            folder.files.map((file) => {
+              if (folder.files.map((file) => file.id).includes(file.id)) {
+                return (
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {file.name.substring(0, 40)}
+                    <i
+                      class="fa-solid fa-xmark pointer rightPad xmark"
+                      onClick={(e) => removeFile(file.id, e)}
+                    ></i>
+                  </div>
+                );
+              }
+              return null;
+            })}
+        </div>
+      </div>
         <div className="flexCol justEnd heightEdit">
           <div className="flexRow alignCenter widthFull justEnd">
             <button className="createButton2" type="submit">
@@ -123,7 +160,6 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
             </button>
           </div>
         </div>
-      </div>
     </form>
   );
 };
