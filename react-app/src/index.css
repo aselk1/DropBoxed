@@ -94,7 +94,7 @@ a {
 }
 
 .height100 {
-    height: 100px;
+    min-height: 100px;
 }
 
 .height27 {
@@ -159,6 +159,10 @@ ul {
 
 .widthFit {
     width: fit-content;
+}
+
+.height30 {
+    min-height: 30px;
 }
 
 .width150 {

@@ -112,6 +112,28 @@ export const fetchDeleteFile = (id) => async (dispatch) => {
   }
 };
 
+export const fetchAddUser = (fileId, userId) => async (dispatch) => {
+  const res = await fetch(`/api/files/${fileId}/${userId}`, {
+    method: "POST",
+  });
+  if (res.ok) {
+    const file = await res.json();
+    dispatch(editFile(file));
+    return res;
+  }
+};
+
+export const fetchRemoveUser = (fileId, userId) => async (dispatch) => {
+  const res = await fetch(`/api/files/${fileId}/${userId}`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    const file = await res.json();
+    dispatch(editFile(file));
+    return res;
+  }
+};
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {

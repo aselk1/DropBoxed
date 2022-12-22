@@ -4,8 +4,10 @@ import { useHistory } from "react-router-dom";
 import * as folderActions from "../../store/folders";
 import folderPic from "../images/folderPic.png";
 
-const EditFolderForm = ({ folder, setShowModal, user }) => {
+const EditFolderForm = ({ folder, setShowModal }) => {
   const files = useSelector((state) => state.files.files);
+  const users = useSelector((state) => state.users.users);
+  const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState(folder.name);
@@ -41,6 +43,16 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
   const removeFile = async (fileId, e) => {
     e.preventDefault();
     await dispatch(folderActions.fetchRemoveFile(folder.id, fileId));
+  };
+
+  const addUser = async (userId, e) => {
+    e.preventDefault();
+    await dispatch(folderActions.fetchAddUser(folder.id, userId));
+  };
+
+  const removeUser = async (userId, e) => {
+    e.preventDefault();
+    await dispatch(folderActions.fetchRemoveUser(folder.id, userId));
   };
 
   return (
@@ -79,24 +91,6 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
             onChange={setPrivate}
           />
         </div>
-        <h4 className="fontHead2">Remove Files</h4>
-        <div className="removeFiles">
-          {folder &&
-            folder.files.map((file) => {
-              if (folder.files.map((file) => file.id).includes(file.id)) {
-                return (
-                  <div className="flexRow justSpace removePadding alignCenter">
-                    {file.name.substring(0, 40)}
-                    <i
-                      class="fa-solid fa-xmark pointer rightPad xmark"
-                      onClick={(e) => removeFile(file.id, e)}
-                    ></i>
-                  </div>
-                );
-              }
-              return null;
-            })}
-        </div>
         <h4 className="fontHead2">Add Files</h4>
         <div className="removeFiles">
           {files &&
@@ -115,7 +109,7 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
               return null;
             })}
         </div>
-        <h4 className="fontHead2">Add User Access</h4>
+        <h4 className="fontHead2">Remove Files</h4>
         <div className="removeFiles">
           {folder &&
             folder.files.map((file) => {
@@ -126,6 +120,24 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
                     <i
                       class="fa-solid fa-xmark pointer rightPad xmark"
                       onClick={(e) => removeFile(file.id, e)}
+                    ></i>
+                  </div>
+                );
+              }
+              return null;
+            })}
+        </div>
+        <h4 className="fontHead2">Add User Access</h4>
+        <div className="removeFiles">
+          {users &&
+            users.map((user) => {
+              if (!folder.users.map((user) => user.id).includes(user.id) && user.id !== currentUser.id) {
+                return (
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {user.username}
+                    <i
+                      class="fa-solid fa-check pointer rightPad checkMark"
+                      onClick={(e) => addUser(user.id, e)}
                     ></i>
                   </div>
                 );
@@ -136,14 +148,14 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
         <h4 className="fontHead2">Remove User Access</h4>
         <div className="removeFiles">
           {folder &&
-            folder.files.map((file) => {
-              if (folder.files.map((file) => file.id).includes(file.id)) {
+            folder.users.map((user) => {
+              if (folder.users.map((user) => user.id).includes(user.id)) {
                 return (
                   <div className="flexRow justSpace removePadding alignCenter">
-                    {file.name.substring(0, 40)}
+                    {user.username}
                     <i
                       class="fa-solid fa-xmark pointer rightPad xmark"
-                      onClick={(e) => removeFile(file.id, e)}
+                      onClick={(e) => removeUser(user.id, e)}
                     ></i>
                   </div>
                 );
@@ -152,14 +164,14 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
             })}
         </div>
       </div>
-        <div className="flexCol justEnd heightEdit">
-          <div className="flexRow alignCenter widthFull justEnd">
-            <button className="createButton2" type="submit">
-              {imageLoading && "Loading..."}
-              {!imageLoading && "Edit"}
-            </button>
-          </div>
+      <div className="flexCol justEnd heightEdit">
+        <div className="flexRow alignCenter widthFull justEnd">
+          <button className="createButton2" type="submit">
+            {imageLoading && "Loading..."}
+            {!imageLoading && "Edit"}
+          </button>
         </div>
+      </div>
     </form>
   );
 };

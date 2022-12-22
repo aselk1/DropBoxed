@@ -153,8 +153,8 @@ export const fetchAddUser = (folderId, userId) => async (dispatch) => {
   }
 };
 
-export const fetchRemoveUSer = (folderId, fileId) => async (dispatch) => {
-  const res = await fetch(`/api/folder_user/${folderId}/${fileId}`, {
+export const fetchRemoveUser = (folderId, userId) => async (dispatch) => {
+  const res = await fetch(`/api/folders/${folderId}/${userId}`, {
     method: "DELETE",
   });
   if (res.ok) {

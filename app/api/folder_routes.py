@@ -5,6 +5,7 @@ from sqlalchemy import or_
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3)
 from app.models import File, Folder, db, User
+from app.models.folder import user_folder
 from app.forms import FileForm
 
 def validation_errors_to_error_messages(validation_errors):
@@ -22,8 +23,11 @@ folder_routes = Blueprint('folders', __name__)
 
 @folder_routes.route('')
 @login_required
-def get_files():
-    folders = Folder.query.filter(or_(Folder.private == False, Folder.user_id == current_user.id))
+def get_folders():
+    folders = Folder.query.filter(or_(Folder.private == False, Folder.user_id == current_user.id, Folder.users.contains(current_user)))
+    folders2 = [folder.to_dict() for folder in folders]
+    if len(folders2) < 1:
+        folders = Folder.query.filter(or_(Folder.private == False, Folder.user_id == current_user.id))
     return {'folders': [folder.to_dict() for folder in folders]}
 
 @folder_routes.route('', methods=['POST'])
@@ -54,7 +58,7 @@ def get_folder(id):
 
 @folder_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def edit_file(id):
+def edit_folder(id):
     folder = Folder.query.get(id)
     if current_user.id == folder.user_id:
         form = FileForm()
