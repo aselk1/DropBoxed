@@ -4,8 +4,10 @@ import { useHistory } from "react-router-dom";
 import * as folderActions from "../../store/folders";
 import folderPic from "../images/folderPic.png";
 
-const EditFolderForm = ({ folder, setShowModal, user }) => {
+const EditFolderForm = ({ folder, setShowModal }) => {
   const files = useSelector((state) => state.files.files);
+  const users = useSelector((state) => state.users.users);
+  const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState(folder.name);
@@ -43,13 +45,23 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
     await dispatch(folderActions.fetchRemoveFile(folder.id, fileId));
   };
 
+  const addUser = async (userId, e) => {
+    e.preventDefault();
+    await dispatch(folderActions.fetchAddUser(folder.id, userId));
+  };
+
+  const removeUser = async (userId, e) => {
+    e.preventDefault();
+    await dispatch(folderActions.fetchRemoveUser(folder.id, userId));
+  };
+
   return (
     <form onSubmit={addFolder} className="formContainer">
       <div className="flexRow alignCenter leftPad rightPad plainBorder">
         <img src={folderPic} className="folderPic"></img>
         <h2 className="fontHead">Edit Folder</h2>
       </div>
-      <div className="flexCol fullPad heightCreate">
+      <div className="flexCol fullPad heightCreate scroll">
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
@@ -79,24 +91,6 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
             onChange={setPrivate}
           />
         </div>
-        <h4 className="fontHead2">Remove Files</h4>
-        <div className="removeFiles">
-          {folder &&
-            folder.files.map((file) => {
-              if (folder.files.map((file) => file.id).includes(file.id)) {
-                return (
-                  <div className="flexRow justSpace removePadding alignCenter">
-                    {file.name.substring(0, 40)}
-                    <i
-                      class="fa-solid fa-xmark pointer rightPad xmark"
-                      onClick={(e) => removeFile(file.id, e)}
-                    ></i>
-                  </div>
-                );
-              }
-              return null;
-            })}
-        </div>
         <h4 className="fontHead2">Add Files</h4>
         <div className="removeFiles">
           {files &&
@@ -115,13 +109,67 @@ const EditFolderForm = ({ folder, setShowModal, user }) => {
               return null;
             })}
         </div>
-        <div className="flexCol justEnd heightEdit">
-          <div className="flexRow alignCenter widthFull justEnd">
-            <button className="createButton2" type="submit">
-              {imageLoading && "Loading..."}
-              {!imageLoading && "Edit"}
-            </button>
-          </div>
+        <h4 className="fontHead2">Remove Files</h4>
+        <div className="removeFiles">
+          {folder &&
+            folder.files.map((file) => {
+              if (folder.files.map((file) => file.id).includes(file.id)) {
+                return (
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {file.name.substring(0, 40)}
+                    <i
+                      class="fa-solid fa-xmark pointer rightPad xmark"
+                      onClick={(e) => removeFile(file.id, e)}
+                    ></i>
+                  </div>
+                );
+              }
+              return null;
+            })}
+        </div>
+        <h4 className="fontHead2">Add User Access</h4>
+        <div className="removeFiles">
+          {users &&
+            users.map((user) => {
+              if (!folder.users.map((user) => user.id).includes(user.id) && user.id !== currentUser.id) {
+                return (
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {user.username}
+                    <i
+                      class="fa-solid fa-check pointer rightPad checkMark"
+                      onClick={(e) => addUser(user.id, e)}
+                    ></i>
+                  </div>
+                );
+              }
+              return null;
+            })}
+        </div>
+        <h4 className="fontHead2">Remove User Access</h4>
+        <div className="removeFiles">
+          {folder &&
+            folder.users.map((user) => {
+              if (folder.users.map((user) => user.id).includes(user.id)) {
+                return (
+                  <div className="flexRow justSpace removePadding alignCenter">
+                    {user.username}
+                    <i
+                      class="fa-solid fa-xmark pointer rightPad xmark"
+                      onClick={(e) => removeUser(user.id, e)}
+                    ></i>
+                  </div>
+                );
+              }
+              return null;
+            })}
+        </div>
+      </div>
+      <div className="flexCol justEnd heightEdit">
+        <div className="flexRow alignCenter widthFull justEnd">
+          <button className="createButton2" type="submit">
+            {imageLoading && "Loading..."}
+            {!imageLoading && "Edit"}
+          </button>
         </div>
       </div>
     </form>

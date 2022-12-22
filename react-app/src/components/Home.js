@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import * as fileActions from "../store/files";
 import * as folderActions from "../store/folders";
+import * as userActions from "../store/users";
 import FileFormModal from "./FileFormModal";
 import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
@@ -31,6 +32,7 @@ const Home = ({ user, loaded }) => {
       if (user.id) {
         await dispatch(fileActions.fetchAllFiles());
         await dispatch(folderActions.fetchAllFolders());
+        await dispatch(userActions.fetchAllUsers());
       }
     })();
   }, [dispatch]);

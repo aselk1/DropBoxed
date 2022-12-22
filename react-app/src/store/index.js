@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import files from './files'
 import folders from './folders'
+import users from './users'
 
 const rootReducer = combineReducers({
   session,
   files,
-  folders
+  folders,
+  users
 });
 
 

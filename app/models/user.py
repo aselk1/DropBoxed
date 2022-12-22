@@ -1,8 +1,9 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .folder_files import folder_files
+from .file import user_file
+from .folder import user_folder
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
 
 
 class User(db.Model, UserMixin):
@@ -15,6 +16,18 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    files = db.relationship(
+        "File",
+        secondary=user_file,
+        back_populates="users"
+    )
+
+    folders = db.relationship(
+        "Folder",
+        secondary=user_folder,
+        back_populates="users"
+    )
 
 
     @property

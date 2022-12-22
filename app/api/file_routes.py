@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import or_
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename, delete_file_from_s3, download_file_from_s3)
-from app.models import File, db
+from app.models import File, db, User
 from app.forms import FileForm
 
 def validation_errors_to_error_messages(validation_errors):
@@ -23,9 +23,11 @@ file_routes = Blueprint('files', __name__)
 @file_routes.route('')
 @login_required
 def get_files():
-    files = File.query.filter(or_(File.private == False, File.user_id == current_user.id))
+    files = File.query.filter(or_(File.private == False, File.user_id == current_user.id, File.users.contains(current_user)))
+    files2 = [file.to_dict() for file in files]
+    if len(files2) < 1:
+        files = File.query.filter(or_(File.private == False, File.user_id == current_user.id))
     return {'files': [file.to_dict() for file in files]}
-    # return {file.id: file.to_dict() for file in files}
 
 @file_routes.route('/<int:id>/download')
 @login_required
@@ -122,4 +124,29 @@ def delete_file(id):
         db.session.delete(file)
         db.session.commit()
         return {"data": data}
+    return {'errors': ['Unauthorized']}
+
+
+@file_routes.route('/<int:file_id>/<int:user_id>', methods=['POST'])
+@login_required
+def post_folder_file(file_id, user_id):
+    file = File.query.get(file_id)
+    user = User.query.get(user_id)
+    if current_user.id == file.user_id:
+        file.users.append(user)
+        db.session.add(file)
+        db.session.commit()
+        return file.to_dict()
+    return {'errors': ['Unauthorized']}
+
+@file_routes.route('/<int:file_id>/<int:user_id>', methods=['DELETE'])
+@login_required
+def delete_folder_file(file_id, user_id):
+    file = File.query.get(file_id)
+    user = User.query.get(user_id)
+    if current_user.id == file.user_id:
+        file.users.remove(user)
+        db.session.add(file)
+        db.session.commit()
+        return file.to_dict()
     return {'errors': ['Unauthorized']}
