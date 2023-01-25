@@ -1,9 +1,9 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .folder_files import folder_files
-from .file import user_file
-from .folder import user_folder
+from .file import user_file, fav_file
+from .folder import user_folder, fav_folder
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 
 
 class User(db.Model, UserMixin):
@@ -29,6 +29,18 @@ class User(db.Model, UserMixin):
         back_populates="users"
     )
 
+    fav_files = db.relationship(
+        "File",
+        secondary=fav_file,
+        back_populates="fav_users"
+    )
+
+    fav_folders = db.relationship(
+        "Folder",
+        secondary=fav_folder,
+        back_populates="fav_users"
+    )
+
 
     @property
     def password(self):
@@ -46,4 +58,6 @@ class User(db.Model, UserMixin):
             "id": self.id,
             "username": self.username,
             "email": self.email,
+            "fav_files": [file.to_dict() for file in self.fav_files if file.private == False or file.user_id == current_user.id or current_user.id in [user.to_dict().id for user in file.users]],
+            "fav_folders": [folder.to_dict() for folder in self.fav_folders if folder.private == False or folder.user_id == current_user.id or current_user.id in [user.to_dict().id for user in folder.users]],
         }

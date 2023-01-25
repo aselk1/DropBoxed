@@ -9,8 +9,15 @@ user_folder = db.Table(
     db.Column("folder_id", db.Integer, db.ForeignKey(add_prefix_for_prod("folders.id")), primary_key=True)
 )
 
+fav_folder = db.Table(
+    "fav_folder",
+    db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+    db.Column("file_id", db.Integer, db.ForeignKey(add_prefix_for_prod("files.id")), primary_key=True)
+)
+
 if environment == "production":
     user_folder.schema = SCHEMA
+    fav_folder.schema = SCHEMA
 
 
 class Folder(db.Model):
@@ -34,6 +41,12 @@ class Folder(db.Model):
         "User",
         secondary=user_folder,
         back_populates="folders"
+    )
+
+    fav_users = db.relationship(
+        "User",
+        secondary=fav_folder,
+        back_populates="fav_folders"
     )
 
 
