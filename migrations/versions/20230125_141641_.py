@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: bad012463456
+Revision ID: 40fa46adcdb1
 Revises: 
-Create Date: 2022-12-21 14:46:41.636463
+Create Date: 2023-01-25 14:16:41.235751
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bad012463456'
+revision = '40fa46adcdb1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -45,6 +45,20 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('fav_file',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('file_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['file_id'], ['files.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'file_id')
+    )
+    op.create_table('fav_folder',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('folder_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['folder_id'], ['folders.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'folder_id')
+    )
     op.create_table('folder_files',
     sa.Column('folder_id', sa.Integer(), nullable=False),
     sa.Column('file_id', sa.Integer(), nullable=False),
@@ -74,6 +88,8 @@ def downgrade():
     op.drop_table('user_folder')
     op.drop_table('user_file')
     op.drop_table('folder_files')
+    op.drop_table('fav_folder')
+    op.drop_table('fav_file')
     op.drop_table('folders')
     op.drop_table('files')
     op.drop_table('users')

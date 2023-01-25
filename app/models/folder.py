@@ -12,7 +12,7 @@ user_folder = db.Table(
 fav_folder = db.Table(
     "fav_folder",
     db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
-    db.Column("file_id", db.Integer, db.ForeignKey(add_prefix_for_prod("files.id")), primary_key=True)
+    db.Column("folder_id", db.Integer, db.ForeignKey(add_prefix_for_prod("folders.id")), primary_key=True)
 )
 
 if environment == "production":
