@@ -172,6 +172,10 @@ const Home = ({ user, loaded }) => {
                     .split(".")
                     [file.file_url.split(".").length - 1].toUpperCase()}
                   <div>
+                    {!(file in user.fav_files) && <i class="fa-regular fa-bookmark"></i>}
+                    {file in user.fav_files && <i class="fa-solid fa-bookmark"></i>}
+                  </div>
+                  <div>
                     <button
                       className="menuButton2"
                       onClick={() => {

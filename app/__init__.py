@@ -10,6 +10,8 @@ from .api.user_routes import user_routes
 from .api.file_routes import file_routes
 from .api.folder_routes import folder_routes
 from .api.folder_files_routes import folder_files_routes
+from .api.fav_file_routes import fav_file_routes
+from .api.fav_folder_routes import fav_folder_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +38,8 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(file_routes, url_prefix='/api/files')
 app.register_blueprint(folder_routes, url_prefix="/api/folders")
 app.register_blueprint(folder_files_routes, url_prefix="/api/folder_files")
+app.register_blueprint(fav_file_routes, url_prefix="/api/fav_file")
+app.register_blueprint(fav_folder_routes, url_prefix="/api/fav_folder")
 
 db.init_app(app)
 Migrate(app, db)
