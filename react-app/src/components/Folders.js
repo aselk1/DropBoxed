@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import * as fileActions from "../store/files";
 import * as folderActions from "../store/folders";
+import * as sessionActions from "../store/session";
 import FileFormModal from "./FileFormModal";
 import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
@@ -19,6 +20,7 @@ const Folders = ({ user, loaded }) => {
   const folders = useSelector((state) => state.folders.folders);
   const [folderId, setFolderId] = useState(-1);
   const [folderFilesId, setFolderFilesId] = useState(-1);
+   const fav_folders = user.fav_folders.map((folder) => folder.id);
 
   useEffect(() => {
     (async () => {
@@ -56,6 +58,13 @@ const Folders = ({ user, loaded }) => {
     setFolderId(id);
   };
 
+  const addFavFolder = async (userId, folderId) => {
+    await dispatch(sessionActions.fetch_add_fav_folder(userId, folderId));
+  };
+  const removeFavFolder = async (userId, folderId) => {
+    await dispatch(sessionActions.fetch_delete_fav_folder(userId, folderId));
+  };
+
   return (
     <div className="flexRow heightFull widthFull">
       <div className="menu fixed">{user.id && <MenuBar loaded={loaded} />}</div>
@@ -87,6 +96,24 @@ const Folders = ({ user, loaded }) => {
                     {folder.name.substring(0, 40)}
                   </div>
                   <div className="testtest"></div>
+                  <div>
+                    {!fav_folders.includes(folder.id) && (
+                      <i
+                        class="fa-regular fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          addFavFolder(user.id, folder.id);
+                        }}
+                      ></i>
+                    )}
+                    {fav_folders.includes(folder.id) && (
+                      <i
+                        class="fa-solid fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          removeFavFolder(user.id, folder.id);
+                        }}
+                      ></i>
+                    )}
+                  </div>
                   {folder.user_id === user.id && (
                     <button
                       className="menuButton2"

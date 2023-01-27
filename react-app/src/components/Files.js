@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import * as fileActions from "../store/files";
 import * as folderActions from "../store/folders";
+import * as sessionActions from "../store/session";
 import FileFormModal from "./FileFormModal";
 import MenuBar from "./MenuBar";
 import filePic from "./images/filePic.png";
@@ -15,6 +16,7 @@ const Files = ({ user, loaded }) => {
   const [fileId, setFileId] = useState(-1);
   const [timeoutId, setTimeoutId] = useState(null);
   const [descId, setDescId] = useState(-1);
+  const fav_files = user.fav_files.map((file) => file.id);
   useEffect(() => {
     (async () => {
       if (user.id) {
@@ -38,6 +40,14 @@ const Files = ({ user, loaded }) => {
 
   const downloadFile = async (id) => {
     const data = await dispatch(fileActions.fetchDownload(id));
+  };
+
+  const addFavFile = async (userId, fileId) => {
+    await dispatch(sessionActions.fetch_add_fav_file(userId, fileId));
+    console.log(fav_files);
+  };
+  const removeFavFile = async (userId, fileId) => {
+    await dispatch(sessionActions.fetch_delete_fav_file(userId, fileId));
   };
 
   return (
@@ -92,6 +102,24 @@ const Files = ({ user, loaded }) => {
                   {file.file_url
                     .split(".")
                     [file.file_url.split(".").length - 1].toUpperCase()}
+                  <div>
+                    {!fav_files.includes(file.id) && (
+                      <i
+                        class="fa-regular fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          addFavFile(user.id, file.id);
+                        }}
+                      ></i>
+                    )}
+                    {fav_files.includes(file.id) && (
+                      <i
+                        class="fa-solid fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          removeFavFile(user.id, file.id);
+                        }}
+                      ></i>
+                    )}
+                  </div>
                   <div>
                     <button
                       className="menuButton2"

@@ -34,6 +34,14 @@ const MenuBar = ({ user, loaded }) => {
             >
               <div className="menuButton">Folders</div>
             </NavLink>
+            <NavLink
+              className="height27 hoverGrey"
+              to="/favorites"
+              exact={true}
+              activeClassName="active"
+            >
+              <div className="menuButton">Favorites</div>
+            </NavLink>
           </div>
         </nav>
       )}

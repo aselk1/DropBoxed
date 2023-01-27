@@ -7,8 +7,16 @@ user_file = db.Table(
     db.Column("file_id", db.Integer, db.ForeignKey(add_prefix_for_prod("files.id")), primary_key=True)
 )
 
+fav_file = db.Table(
+    "fav_file",
+    db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+    db.Column("file_id", db.Integer, db.ForeignKey(add_prefix_for_prod("files.id")), primary_key=True)
+)
+
 if environment == "production":
     user_file.schema = SCHEMA
+    fav_file.schema = SCHEMA
+
 
 
 class File(db.Model):
@@ -29,6 +37,12 @@ class File(db.Model):
         secondary=folder_files,
         back_populates="files",
         # backref="files"
+    )
+
+    fav_users = db.relationship(
+        "User",
+        secondary=fav_file,
+        back_populates="fav_files"
     )
 
     users = db.relationship(
