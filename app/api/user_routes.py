@@ -25,6 +25,11 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
+@user_routes.route('<int:user_id>')
+@login_required
+def get_user(user_id):
+    return current_user.to_dict()
+
 # @user_routes.route('/<int:id>')
 # @login_required
 # def user(id):

@@ -2,14 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EditFolderFormModal from "./EditFolderFormModal";
 import * as folderActions from "../store/folders";
+import * as sessionActions from "../store/session";
 import filePic from "./images/filePic.png";
 import FileDropDownModal from "./FileDropDownModal";
 import { DropDownProvider } from "../context/DropDown";
 
 function FileMenu({ user, folder }) {
+  const dispatch = useDispatch();
   const [fileId, setFileId] = useState(-1);
   const [timeoutId, setTimeoutId] = useState(null);
   const [descId, setDescId] = useState(-1);
+  const fav_files = user.fav_files.map((file) => file.id);
+
+  const addFavFile = async (userId, fileId) => {
+    await dispatch(sessionActions.fetch_add_fav_file(userId, fileId));
+    console.log(fav_files);
+  };
+  const removeFavFile = async (userId, fileId) => {
+    await dispatch(sessionActions.fetch_delete_fav_file(userId, fileId));
+  };
 
   return (
     <div className="folderBarPadding">
@@ -55,6 +66,24 @@ function FileMenu({ user, folder }) {
                   {file.file_url
                     .split(".")
                     [file.file_url.split(".").length - 1].toUpperCase()}
+                  <div>
+                    {!fav_files.includes(file.id) && (
+                      <i
+                        class="fa-regular fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          addFavFile(user.id, file.id);
+                        }}
+                      ></i>
+                    )}
+                    {fav_files.includes(file.id) && (
+                      <i
+                        class="fa-solid fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          removeFavFile(user.id, file.id);
+                        }}
+                      ></i>
+                    )}
+                  </div>
                   <div>
                     <button
                       className="menuButton2"

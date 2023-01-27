@@ -4,6 +4,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import * as fileActions from "../store/files";
 import * as folderActions from "../store/folders";
 import * as userActions from "../store/users";
+import * as sessionActions from "../store/session";
 import FileFormModal from "./FileFormModal";
 import EditFileFormModal from "./EditFileFormModal";
 import FolderFormModal from "./FolderFormModal";
@@ -26,6 +27,8 @@ const Home = ({ user, loaded }) => {
   const [fileId, setFileId] = useState(-1);
   const [descId, setDescId] = useState(-1);
   const [timeoutId, setTimeoutId] = useState(null);
+  const fav_files = user.fav_files.map(file => file.id);
+  const fav_folders = user.fav_folders.map((folder) => folder.id);
 
   useEffect(() => {
     (async () => {
@@ -40,6 +43,22 @@ const Home = ({ user, loaded }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const addFavFile = async (userId, fileId) => {
+    await dispatch(sessionActions.fetch_add_fav_file(userId, fileId));
+    console.log(fav_files)
+  };
+  const removeFavFile = async (userId, fileId) => {
+    await dispatch(sessionActions.fetch_delete_fav_file(userId, fileId));
+  };
+
+  const addFavFolder = async (userId, folderId) => {
+    await dispatch(sessionActions.fetch_add_fav_folder(userId, folderId));
+    console.log(fav_files);
+  };
+  const removeFavFolder = async (userId, folderId) => {
+    await dispatch(sessionActions.fetch_delete_fav_folder(userId, folderId));
+  };
 
   const deleteFile = async (id) => {
     const data = await dispatch(fileActions.fetchDeleteFile(id));
@@ -97,6 +116,24 @@ const Home = ({ user, loaded }) => {
                     {folder.name.substring(0, 40)}
                   </div>
                   <div className="testtest"></div>
+                  <div>
+                    {!fav_folders.includes(folder.id) && (
+                      <i
+                        class="fa-regular fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          addFavFolder(user.id, folder.id);
+                        }}
+                      ></i>
+                    )}
+                    {fav_folders.includes(folder.id) && (
+                      <i
+                        class="fa-solid fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          removeFavFolder(user.id, folder.id);
+                        }}
+                      ></i>
+                    )}
+                  </div>
                   {folder.user_id === user.id && (
                     <button
                       className="menuButton2"
@@ -172,8 +209,22 @@ const Home = ({ user, loaded }) => {
                     .split(".")
                     [file.file_url.split(".").length - 1].toUpperCase()}
                   <div>
-                    {!(file in user.fav_files) && <i class="fa-regular fa-bookmark"></i>}
-                    {file in user.fav_files && <i class="fa-solid fa-bookmark"></i>}
+                    {!fav_files.includes(file.id) && (
+                      <i
+                        class="fa-regular fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          addFavFile(user.id, file.id);
+                        }}
+                      ></i>
+                    )}
+                    {fav_files.includes(file.id) && (
+                      <i
+                        class="fa-solid fa-bookmark marginLeft pointer"
+                        onClick={() => {
+                          removeFavFile(user.id, file.id);
+                        }}
+                      ></i>
+                    )}
                   </div>
                   <div>
                     <button

@@ -517,3 +517,7 @@ ul {
 .scroll {
     overflow-y: auto;
 }
+
+.marginLeft {
+    margin-left: 15px;
+}
