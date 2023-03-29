@@ -98,7 +98,7 @@ const Files = ({ user, loaded }) => {
                       )}
                     </div>
                   </div>
-                  <div className="testtest"></div>
+                  <div className="emptySpace"></div>
                   {file.file_url
                     .split(".")
                     [file.file_url.split(".").length - 1].toUpperCase()}

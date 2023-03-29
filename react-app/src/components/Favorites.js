@@ -117,7 +117,7 @@ const Favorites = ({ user, loaded }) => {
                         )}
                         {folder.name.substring(0, 40)}
                       </div>
-                      <div className="testtest"></div>
+                      <div className="emptySpace"></div>
                       <div>
                         {!fav_folders.includes(folder.id) && (
                           <i
@@ -210,7 +210,7 @@ const Favorites = ({ user, loaded }) => {
                           )}
                         </div>
                       </div>
-                      <div className="testtest"></div>
+                      <div className="emptySpace"></div>
                       {file.file_url
                         .split(".")
                         [file.file_url.split(".").length - 1].toUpperCase()}

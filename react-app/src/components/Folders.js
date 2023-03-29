@@ -95,7 +95,7 @@ const Folders = ({ user, loaded }) => {
                     )}
                     {folder.name.substring(0, 40)}
                   </div>
-                  <div className="testtest"></div>
+                  <div className="emptySpace"></div>
                   <div>
                     {!fav_folders.includes(folder.id) && (
                       <i
